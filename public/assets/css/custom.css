@@ -1,0 +1,38 @@
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+main {
+    flex: 1;
+}
+.row.justify-content-center.cs {
+    margin-top: 6rem !important;
+    padding-top: 3rem !important;
+}
+.navbar-brand {
+    margin-left: 0.5rem;
+    font-weight: bold;
+}
+.avatar-circle {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 6px;
+}
+@media (max-width: 768px) {
+    .navbar-toggler:focus,
+    .nav-link:focus,
+    .dropdown-toggle:focus {
+        outline: none;
+        box-shadow: none;
+    }
+}
+.naminc {
+    text-shadow: 0 0 5px #0099FF, 0 0 5px #FF66FF, 1px 1px 0 #FF3333;
+    color: white;
+    font-weight: bold;
+    font-weight: red ;
+    background: url(https://i.imgur.com/1ZHeaAQ.gif);
+}
