@@ -6,8 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-
-class LoginMiddleware
+class CheckUserStatusMiddleware
 {
     /**
      * Handle an incoming request.
@@ -18,10 +17,10 @@ class LoginMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check()) {
-            return redirect()->route('home.page');
+        if (Auth::check() && Auth::user()->status === 'inactive') {
+            Auth::logout();
+            return redirect()->route('auth.login.page')->with('error', 'Tài khoản của bạn đã bị khóa.');
         }
-
         return $next($request);
     }
 }

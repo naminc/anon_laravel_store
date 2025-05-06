@@ -3,8 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminController;
 use App\Http\Middleware\AuthenticateMiddleware;
 use App\Http\Middleware\LoginMiddleware;
+use App\Http\Middleware\AdminMiddleware;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,7 +31,14 @@ Route::middleware(['login'])->group(function () {
 });
 
 
-Route::middleware(['authenticate'])->group(function () {
+Route::middleware(['authenticate', 'check.user.status'])->group(function () {
     Route::get('/',[HomeController::class,'index'])->name('home');
     Route::get('/home',[HomeController::class,'index'])->name('home.page');
 });
+
+Route::get('/admin', [AdminController::class, 'index'])->middleware('admin');
+
+Route::get('/admin/users', [AdminController::class, 'users'])->middleware('admin');
+
+
+Route::delete('/user/delete/{id}', [HomeController::class, 'deleteUser'])->name('home.deleteUser');
