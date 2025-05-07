@@ -15,13 +15,8 @@ class HomeController extends Controller
     }
     public function index()
     {
-        $data = [
-            'title' => 'Trang chủ',
-            'content' => 'Trang chủ',
-        ];
-
         $users = $this->userService->paginate();
-        return view('home', $data, compact('users'));
+        return view('home', compact('users'));
     }
 
     public function deleteUser($id)
