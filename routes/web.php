@@ -30,7 +30,6 @@ Route::middleware(['login'])->group(function () {
     Route::post('auth/register',[AuthController::class,'register'])->name('auth.register');
 });
 
-
 Route::middleware(['authenticate', 'check.user.status'])->group(function () {
     Route::get('/',[HomeController::class,'index'])->name('home');
     Route::get('/home',[HomeController::class,'index'])->name('home.page');
