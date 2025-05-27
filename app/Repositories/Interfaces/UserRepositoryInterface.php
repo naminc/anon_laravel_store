@@ -8,10 +8,6 @@ namespace App\Repositories\Interfaces;
  */
 interface UserRepositoryInterface
 {
-    public function getAllPaginate();
-    public function deleteUser($id);
-    public function createUser($data);
-    public function updateUser($id, $data);
-    public function findUser($id);
-    
-}
+    public function findByEmail(string $email);
+    public function create(array $data);
+}   

@@ -2,15 +2,20 @@
 
 namespace App\Providers;
 
+use App\Services\Interfaces\UserServiceInterface;
+use App\Services\UserService;
+use App\Repositories\Interfaces\UserRepositoryInterface;
+use App\Repositories\UserRepository;
 use Illuminate\Support\ServiceProvider;
-
+use App\Services\Interfaces\AuthServiceInterface;
+use App\Services\AuthService;
 
 class AppServiceProvider extends ServiceProvider
 {
 
     protected $providers = [
-        'App\Services\Interfaces\UserServiceInterface' => 'App\Services\UserService',
-        'App\Repositories\Interfaces\UserRepositoryInterface' => 'App\Repositories\UserRepository',
+        AuthServiceInterface::class => AuthService::class,
+        UserRepositoryInterface::class => UserRepository::class,
     ];
     /**
      * Register any application services.

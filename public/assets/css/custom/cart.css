@@ -1,0 +1,313 @@
+.cart-container {
+  padding: 40px 0;
+}
+
+.cart-title {
+  margin-bottom: 30px;
+  font-size: var(--fs-2);
+  font-weight: var(--weight-600);
+  color: var(--eerie-black);
+}
+
+.cart-empty {
+  text-align: center;
+  padding: 40px 0;
+}
+
+.cart-empty ion-icon {
+  font-size: 60px;
+  color: var(--sonic-silver);
+  margin-bottom: 10px;
+}
+
+.cart-empty p {
+  color: var(--sonic-silver);
+  margin-bottom: 20px;
+}
+
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cart-table thead {
+  background-color: var(--cultured);
+  border-bottom: 1px solid var(--cultured);
+}
+
+.cart-table th {
+  padding: 15px;
+  text-align: left;
+  font-weight: var(--weight-600);
+  color: var(--eerie-black);
+}
+
+.cart-table td {
+  padding: 15px;
+  border-bottom: 1px solid var(--cultured);
+}
+
+.cart-product {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.cart-product-img {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--border-radius-sm);
+  object-fit: cover;
+}
+
+.cart-product-title {
+  color: var(--eerie-black);
+  font-weight: var(--weight-500);
+  margin-bottom: 5px;
+}
+
+.cart-product-info {
+  color: var(--sonic-silver);
+  font-size: var(--fs-7);
+}
+
+/* Update the cart-quantity class to add more spacing */
+.cart-quantity {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Increase from 10px to 15px */
+}
+
+/* Update the quantity-btn class to add more padding and spacing */
+.quantity-btn {
+  width: 32px; /* Increase from 30px */
+  height: 32px; /* Increase from 30px */
+  background: var(--white);
+  border: 1px solid var(--cultured);
+  border-radius: var(--border-radius-sm);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  color: var(--eerie-black);
+  transition: var(--transition-timing);
+  margin: 0 5px; /* Add horizontal margin */
+}
+
+.quantity-input {
+  width: 50px;
+  text-align: center;
+  font-size: var(--fs-6);
+  font-weight: var(--weight-500);
+  color: var(--eerie-black);
+  border: 1px solid var(--cultured);
+  border-radius: var(--border-radius-sm);
+  padding: 5px;
+}
+
+.cart-price {
+  font-weight: var(--weight-600);
+  color: var(--eerie-black);
+}
+
+/* Update the remove-btn class to add more spacing */
+.remove-btn {
+  color: var(--sonic-silver);
+  font-size: 20px;
+  transition: var(--transition-timing);
+  padding: 8px; /* Add padding around the icon */
+  display: inline-flex; /* Use flex to center the icon */
+  align-items: center;
+  justify-content: center;
+}
+
+.cart-action-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.continue-shopping, .update-cart {
+  padding: 10px 20px;
+  border-radius: var(--border-radius-md);
+  font-size: var(--fs-6);
+  font-weight: var(--weight-500);
+  transition: var(--transition-timing);
+}
+
+.continue-shopping {
+  background: var(--white);
+  color: var(--eerie-black);
+  border: 1px solid var(--cultured);
+}
+
+.continue-shopping:hover {
+  background: var(--eerie-black);
+  color: var(--white);
+  border-color: var(--eerie-black);
+}
+
+.update-cart {
+  background: var(--salmon-pink);
+  color: var(--white);
+  border: 1px solid var(--salmon-pink);
+}
+
+.update-cart:hover {
+  background: var(--eerie-black);
+  border-color: var(--eerie-black);
+}
+
+.cart-summary {
+  margin-top: 40px;
+  background: var(--cultured);
+  padding: 30px;
+  border-radius: var(--border-radius-md);
+}
+
+.summary-title {
+  font-size: var(--fs-4);
+  font-weight: var(--weight-600);
+  color: var(--eerie-black);
+  margin-bottom: 20px;
+}
+
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+}
+
+.summary-table tr {
+  border-bottom: 1px solid var(--white);
+}
+
+.summary-table tr:last-child {
+  border-bottom: none;
+}
+
+.summary-table th {
+  text-align: left;
+  padding: 10px 0;
+  font-weight: var(--weight-500);
+  color: var(--sonic-silver);
+}
+
+.summary-table td {
+  text-align: right;
+  padding: 10px 0;
+  font-weight: var(--weight-600);
+  color: var(--eerie-black);
+}
+
+.checkout-btn {
+  width: 100%;
+  background: var(--salmon-pink);
+  color: var(--white);
+  padding: 15px;
+  border-radius: var(--border-radius-md);
+  font-size: var(--fs-5);
+  font-weight: var(--weight-600);
+  text-transform: uppercase;
+  text-align: center;
+  transition: var(--transition-timing);
+}
+
+.checkout-btn:hover {
+  background: var(--eerie-black);
+}
+
+.coupon-container {
+  margin-top: 20px;
+}
+
+.coupon-title {
+  font-size: var(--fs-6);
+  font-weight: var(--weight-500);
+  color: var(--eerie-black);
+  margin-bottom: 10px;
+}
+
+.coupon-form {
+  display: flex;
+  gap: 10px;
+}
+
+.coupon-input {
+  flex-grow: 1;
+  padding: 10px 15px;
+  border: 1px solid var(--cultured);
+  border-radius: var(--border-radius-md);
+  font-size: var(--fs-7);
+}
+
+.apply-coupon-btn {
+  background: var(--eerie-black);
+  color: var(--white);
+  padding: 10px 20px;
+  border-radius: var(--border-radius-md);
+  font-size: var(--fs-7);
+  font-weight: var(--weight-500);
+  transition: var(--transition-timing);
+}
+
+.apply-coupon-btn:hover {
+  background: var(--salmon-pink);
+}
+
+@media (max-width: 768px) {
+  .cart-table, .cart-table tbody, .cart-table tr, .cart-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .cart-table thead {
+    display: none;
+  }
+
+  .cart-table tr {
+    margin-bottom: 20px;
+    border: 1px solid var(--cultured);
+    border-radius: var(--border-radius-md);
+    padding: 15px;
+  }
+
+  .cart-table td {
+    text-align: right;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--cultured);
+  }
+
+  .cart-table td:last-child {
+    border-bottom: none;
+  }
+
+  .cart-table td::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: var(--weight-600);
+    color: var(--eerie-black);
+  }
+
+  .cart-product {
+    justify-content: flex-end;
+  }
+}
+
+@media (min-width: 768px) {
+  .cart-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+  }
+
+  .cart-summary {
+    margin-top: 0;
+  }
+}
+/* Add a new class for the remove cell to add text spacing */
+.remove-cell {
+  padding-left: 15px; /* Add extra padding to the left */
+}

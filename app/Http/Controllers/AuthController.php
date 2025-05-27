@@ -4,54 +4,43 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\Http\Requests\AuthRequest;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
+use App\Services\Interfaces\AuthServiceInterface;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 
 class AuthController extends Controller
 {
-    public function __construct()
+    protected $authService;
+    public function __construct(AuthServiceInterface $authService)
     {
-        $this->middleware('guest')->except('logout');
+        $this->authService = $authService;
     }
 
-    public function showLogin()
+    public function showLoginForm()
     {
-        $data = [
-            'title' => 'Đăng nhập',
-            'content' => 'Đăng nhập',
-        ];
-        return view('auth.login', $data);
+        return view('auth.login');
     }
 
-    public function showRegister()
+    public function login(LoginRequest $request)
     {
-        $data = [
-            'title' => 'Đăng ký',
-            'content' => 'Đăng ký',
-        ];
-        return view('auth.register', $data);
-    }
-
-    public function login(AuthRequest $request)
-    {
-        if (Auth::attempt($request->only('username', 'password'))) {
-            if (Auth::user()->status === 'inactive') {
-                Auth::logout();
-                return redirect()->route('auth.login.page')->with('error', 'Tài khoản của bạn đã bị khóa.');
-            }
-            return redirect()->route('home.page')->with('success', 'Đăng nhập thành công.');
+        $credentials = $request->only('email', 'password');
+        if ($this->authService->login($credentials)) {
+            return redirect()->route('home.page')->with('success', 'Login successfully.');
         }
-        return redirect()->back()->with('error', 'Tên đăng nhập hoặc mật khẩu không chính xác.');
+        return redirect()->back()->with('error', 'Email or password is incorrect.');
     }
-    public function register(AuthRequest $request) {
-        $user = User::create([
-            'username' => $request->username,
-            'password' => Hash::make($request->password),
-        ]);
-        Auth::login($user);
-        return redirect()->route('home');
+    public function showRegisterForm()
+    {
+        return view('auth.register');
+    }
+
+    public function register(RegisterRequest $request)
+    {
+        $this->authService->register($request->only(['fullname', 'email', 'password', 'role', 'status']));
+        return redirect()->route('auth.login.page')->with('success', 'Register successfully.');
     }
     public function logout(Request $request)
     {

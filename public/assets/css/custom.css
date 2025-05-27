@@ -1,38 +1,24 @@
-body {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+.text-danger {
+  color: #e74c3c;
+  font-size: 0.875rem;
+  margin-top: 4px;
+  display: block;
+  font-weight: 500;
+  animation: shake 0.2s ease-in-out 1;
 }
-main {
-    flex: 1;
+.is-invalid {
+  border: 1px solid #e74c3c;
+  background-color: #fdecea;
+  color: #e74c3c;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.2);
+  transition: border 0.2s ease, box-shadow 0.2s ease;
 }
-.row.justify-content-center.cs {
-    margin-top: 6rem !important;
-    padding-top: 3rem !important;
-}
-.navbar-brand {
-    margin-left: 0.5rem;
-    font-weight: bold;
-}
-.avatar-circle {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        object-fit: cover;
-        margin-right: 6px;
-}
-@media (max-width: 768px) {
-    .navbar-toggler:focus,
-    .nav-link:focus,
-    .dropdown-toggle:focus {
-        outline: none;
-        box-shadow: none;
-    }
-}
-.naminc {
-    text-shadow: 0 0 5px #0099FF, 0 0 5px #FF66FF, 1px 1px 0 #FF3333;
-    color: white;
-    font-weight: bold;
-    font-weight: red ;
-    background: url(https://i.imgur.com/1ZHeaAQ.gif);
+
+@keyframes shake {
+  0% { transform: translateX(0px); }
+  25% { transform: translateX(-2px); }
+  50% { transform: translateX(2px); }
+  75% { transform: translateX(-2px); }
+  100% { transform: translateX(0px); }
 }

@@ -1,0 +1,234 @@
+.auth-container {
+  padding: 60px 0;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-card {
+  max-width: 500px;
+  width: 100%;
+  background-color: var(--white);
+  border-radius: var(--border-radius-md);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  padding: 40px;
+  margin: 0 15px;
+}
+
+.auth-title {
+  font-size: var(--fs-2);
+  font-weight: var(--weight-600);
+  color: var(--eerie-black);
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  margin-bottom: 5px;
+}
+
+.form-label {
+  display: block;
+  color: var(--eerie-black);
+  font-size: var(--fs-7);
+  font-weight: var(--weight-500);
+  margin-bottom: 8px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid var(--cultured);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--fs-7);
+  color: var(--davys-gray);
+  transition: var(--transition-timing);
+}
+
+.form-input:focus {
+  border-color: var(--salmon-pink);
+  outline: none;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+@media (max-width: 480px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+.checkbox-input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--salmon-pink);
+  margin-top: 3px;
+}
+
+.checkbox-label {
+  color: var(--sonic-silver);
+  font-size: var(--fs-7);
+  line-height: 1.5;
+}
+
+.auth-btn {
+  width: 100%;
+  background: var(--salmon-pink);
+  color: var(--white);
+  padding: 12px;
+  border-radius: var(--border-radius-md);
+  font-size: var(--fs-6);
+  font-weight: var(--weight-600);
+  text-transform: uppercase;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-timing);
+}
+
+.auth-btn:hover {
+  background: var(--eerie-black);
+}
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--cultured);
+}
+
+.auth-divider-text {
+  padding: 0 10px;
+  color: var(--sonic-silver);
+  font-size: var(--fs-7);
+}
+
+.social-login {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--white);
+  border: 1px solid var(--cultured);
+  color: var(--sonic-silver);
+  font-size: 20px;
+  transition: var(--transition-timing);
+}
+
+.social-btn:hover {
+  background-color: var(--cultured);
+  color: var(--eerie-black);
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 20px;
+  color: var(--sonic-silver);
+  font-size: var(--fs-7);
+}
+
+.auth-link {
+  color: var(--salmon-pink);
+  text-decoration: none;
+  font-weight: var(--weight-500);
+  transition: var(--transition-timing);
+}
+
+.auth-link:hover {
+  text-decoration: underline;
+  color: var(--eerie-black);
+}
+
+.terms-link {
+  color: var(--salmon-pink);
+  text-decoration: none;
+  transition: var(--transition-timing);
+}
+
+.terms-link:hover {
+  text-decoration: underline;
+  color: var(--eerie-black);
+}
+
+.password-requirements {
+  margin-top: 5px;
+  color: var(--sonic-silver);
+  font-size: var(--fs-8);
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.breadcrumb-item {
+  color: var(--sonic-silver);
+  font-size: var(--fs-7);
+}
+
+.breadcrumb-item.active {
+  color: var(--eerie-black);
+  font-weight: var(--weight-500);
+}
+
+.breadcrumb-separator {
+  font-size: 14px;
+  color: var(--sonic-silver);
+}
+
+.secure-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 15px;
+  color: var(--sonic-silver);
+  font-size: var(--fs-8);
+}
+
+.secure-login ion-icon {
+  color: var(--ocean-green);
+  font-size: 16px;
+}
+
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 30px 20px;
+  }
+}

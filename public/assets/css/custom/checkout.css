@@ -1,0 +1,372 @@
+/* Additional styles for checkout page */
+.checkout-container {
+  padding: 40px 0;
+}
+
+.checkout-title {
+  margin-bottom: 30px;
+  font-size: var(--fs-2);
+  font-weight: var(--weight-600);
+  color: var(--eerie-black);
+}
+
+.checkout-content {
+  display: grid;
+  gap: 30px;
+}
+
+@media (min-width: 768px) {
+  .checkout-content {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+.checkout-form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.checkout-section {
+  border: 1px solid var(--cultured);
+  border-radius: var(--border-radius-md);
+  padding: 25px;
+}
+
+.section-title {
+  font-size: var(--fs-4);
+  font-weight: var(--weight-600);
+  color: var(--eerie-black);
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--cultured);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  color: var(--eerie-black);
+  font-size: var(--fs-7);
+  font-weight: var(--weight-500);
+  margin-bottom: 8px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid var(--cultured);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--fs-7);
+  color: var(--davys-gray);
+  transition: var(--transition-timing);
+}
+
+.form-input:focus {
+  border-color: var(--salmon-pink);
+  outline: none;
+}
+
+.form-row {
+  display: grid;
+  gap: 15px;
+}
+
+@media (min-width: 576px) {
+  .form-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.form-row-3 {
+  display: grid;
+  gap: 15px;
+}
+
+@media (min-width: 576px) {
+  .form-row-3 {
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.checkbox-input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--salmon-pink);
+}
+
+.checkbox-label {
+  color: var(--sonic-silver);
+  font-size: var(--fs-7);
+}
+
+.payment-methods {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.payment-method {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px;
+  border: 1px solid var(--cultured);
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  transition: var(--transition-timing);
+}
+
+.payment-method:hover {
+  border-color: var(--salmon-pink);
+}
+
+.payment-method.active {
+  border-color: var(--salmon-pink);
+  background-color: rgba(252, 121, 154, 0.05);
+}
+
+.payment-radio {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--salmon-pink);
+}
+
+.payment-icon {
+  width: 40px;
+  height: 25px;
+  object-fit: contain;
+}
+
+.payment-method-name {
+  font-weight: var(--weight-500);
+  color: var(--eerie-black);
+  margin-right: auto;
+}
+
+.order-summary {
+  background: var(--cultured);
+  border-radius: var(--border-radius-md);
+  padding: 30px;
+  position: sticky;
+  top: 30px;
+}
+
+.summary-title {
+  font-size: var(--fs-4);
+  font-weight: var(--weight-600);
+  color: var(--eerie-black);
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--white);
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.summary-item-name {
+  color: var(--sonic-silver);
+  font-size: var(--fs-7);
+  line-height: 1.5;
+  font-weight: var(--weight-500);
+}
+
+.summary-item-detail {
+  color: var(--sonic-silver);
+  font-size: var(--fs-7);
+}
+
+.summary-item-price {
+  color: var(--eerie-black);
+  font-weight: var(--weight-600);
+}
+
+.summary-divider {
+  height: 1px;
+  background: var(--white);
+  margin: 20px 0;
+}
+
+.summary-total {
+  font-size: var(--fs-5);
+  font-weight: var(--weight-700);
+  color: var(--eerie-black);
+}
+
+.checkout-btn {
+  width: 100%;
+  background: var(--salmon-pink);
+  color: var(--white);
+  padding: 15px;
+  border-radius: var(--border-radius-md);
+  font-size: var(--fs-5);
+  font-weight: var(--weight-600);
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 20px;
+  transition: var(--transition-timing);
+}
+
+.checkout-btn:hover {
+  background: var(--eerie-black);
+}
+
+.checkout-btn:disabled {
+  background: var(--sonic-silver);
+  cursor: not-allowed;
+}
+
+.order-items {
+  margin-top: 20px;
+}
+
+.order-item {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--white);
+}
+
+.order-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.item-img {
+  width: 50px;
+  height: 50px;
+  border-radius: var(--border-radius-sm);
+  object-fit: cover;
+}
+
+.item-details {
+  flex-grow: 1;
+}
+
+.item-name {
+  color: var(--eerie-black);
+  font-size: var(--fs-7);
+  font-weight: var(--weight-500);
+  margin-bottom: 5px;
+}
+
+.item-variant {
+  color: var(--sonic-silver);
+  font-size: var(--fs-8);
+}
+
+.item-price {
+  color: var(--eerie-black);
+  font-weight: var(--weight-600);
+  font-size: var(--fs-7);
+}
+
+.item-quantity {
+  color: var(--sonic-silver);
+  font-size: var(--fs-8);
+  margin-left: 5px;
+}
+
+.terms-checkbox {
+  margin-top: 20px;
+}
+
+.terms-link {
+  color: var(--salmon-pink);
+  text-decoration: underline;
+}
+
+.terms-link:hover {
+  color: var(--eerie-black);
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.breadcrumb-item {
+  color: var(--sonic-silver);
+  font-size: var(--fs-7);
+}
+
+.breadcrumb-item.active {
+  color: var(--eerie-black);
+  font-weight: var(--weight-500);
+}
+
+.breadcrumb-separator {
+  font-size: 14px;
+  color: var(--sonic-silver);
+}
+
+.secure-checkout {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 15px;
+  color: var(--sonic-silver);
+  font-size: var(--fs-8);
+}
+
+.secure-checkout ion-icon {
+  color: var(--ocean-green);
+  font-size: 16px;
+}
+
+.card-icons {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.card-icon {
+  width: 40px;
+  height: 25px;
+  object-fit: contain;
+}
+
+/* Credit card form styles */
+.card-details {
+  margin-top: 15px;
+  display: none;
+}
+
+.card-details.active {
+  display: block;
+}
+
+.card-number-group {
+  position: relative;
+}
+
+.card-icons-inline {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 5px;
+}
+
+.card-icon-inline {
+  width: 30px;
+  height: 20px;
+  object-fit: contain;
+}
