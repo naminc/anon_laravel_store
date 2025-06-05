@@ -138,7 +138,7 @@
                         <ion-icon name="call-outline"></ion-icon>
                     </div>
 
-                    <a href="tel:+607936-8058" class="footer-nav-link">(607) 936-8058</a>
+                    <a href="tel:+607936-8058" class="footer-nav-link">+84 909 123 456</a>
                 </li>
 
                 <li class="footer-nav-item flex">
@@ -146,7 +146,7 @@
                         <ion-icon name="mail-outline"></ion-icon>
                     </div>
 
-                    <a href="mailto:example@gmail.com" class="footer-nav-link">example@gmail.com</a>
+                    <a href="mailto:example@gmail.com" class="footer-nav-link">admin@naminc.io</a>
                 </li>
 
             </ul>
@@ -200,8 +200,8 @@
             <img src="{{ asset('assets/images/payment.png') }}" alt="payment method" class="payment-img">
 
             <p class="copyright">
-                Copyright &copy; <a href="#">Anon</a> all rights reserved.
-            </p>
+                Copyright &copy; <a href="//{{ $setting->domain }}">{{ $setting->domain }}</a> dev by {{ $setting->author }}.
+            </p> 
 
         </div>
 

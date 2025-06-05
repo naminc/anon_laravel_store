@@ -8,10 +8,5 @@ namespace App\Services\Interfaces;
  */
 interface UserServiceInterface
 {
-    public function paginate();
-    public function delete($id);
-    public function create($data);
-    public function update($id, $data);
-    public function find($id);
-    
+    public function getAll();
 }

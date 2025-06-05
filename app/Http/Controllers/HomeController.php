@@ -4,15 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\Interfaces\UserServiceInterface as UserService;
+use App\Services\Interfaces\SettingServiceInterface;
 
 class HomeController extends Controller
 {
-
-    public function __construct()
+    protected $settingService;
+    public function __construct(SettingServiceInterface $settingService)
     {
+        $this->settingService = $settingService;
     }
     public function index()
     {
-        return view('home');
+        $setting = $this->settingService->get();
+        return view('home', compact('setting'));
     }
 }

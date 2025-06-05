@@ -11,5 +11,14 @@ use App\Repositories\Interfaces\UserRepositoryInterface as UserRepository;
  */
 class UserService implements UserServiceInterface
 {
+    protected $userRepository;
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+    public function getAll()
+    {
+        return $this->userRepository->all();
+    }
     
 }

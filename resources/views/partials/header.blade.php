@@ -54,7 +54,7 @@
         <div class="container">
 
             <a href="{{ route('home') }}" class="header-logo">
-                <img src="{{ asset('assets/images/logo/logo.svg') }}" alt="Anon's logo" width="120" height="36">
+                <img src="{{ asset($setting->logo) }}" alt="Logo" width="120" height="36">
             </a>
 
             <div class="header-search-container">
@@ -68,19 +68,24 @@
             </div>
 
             <div class="header-user-actions">
-
-                <a href="{{ route('auth.login.page') }}" class="action-btn">
+                <a href="@if (Auth::check()) {{ route('auth.logout') }} @else {{ route('auth.login.page') }} @endif"
+                    class="action-btn">
                     <ion-icon name="person-outline"></ion-icon>
                 </a>
-
-                <a href="{{ route('cart.page') }}" class="action-btn">
+                <a href="{{ route('cart.page') }}" class="action-btn"
+                    @guest
+                    onclick="return showLoginAlert(event)"
+                    @endguest>
                     <ion-icon name="bag-handle-outline"></ion-icon>
                     <span class="count">0</span>
                 </a>
+                @auth
+                    <a href="{{ route('auth.logout') }}" class="action-btn">
+                        <ion-icon name="log-out-outline"></ion-icon>
+                    </a>
+                @endauth
             </div>
-
         </div>
-
     </div>
 
     <nav class="desktop-navigation-menu">
@@ -90,7 +95,7 @@
             <ul class="desktop-menu-category-list">
 
                 <li class="menu-category">
-                    <a href="#" class="menu-title">Home</a>
+                    <a href="{{ route('home') }}" class="menu-title">Home</a>
                 </li>
 
                 <li class="menu-category">
@@ -558,3 +563,23 @@
     </nav>
 
 </header>
+@push('scripts')
+    @if (!Auth::check())
+        <script>
+            function showLoginAlert(e) {
+                e.preventDefault();
+                Swal.fire({
+                    icon: 'info',
+                    title: 'You need to login',
+                    text: 'Please login to use the cart!',
+                    confirmButtonText: 'Login',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "{{ route('auth.login.page') }}";
+                    }
+                });
+                return false;
+            }
+        </script>
+    @endif
+@endpush
