@@ -19,9 +19,8 @@ class UserFactory extends Factory
     {
         return [
             'fullname' => fake()->name(),
-            'username' => fake()->unique()->username(),
             'email' => fake()->unique()->safeEmail(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => '$2y$10$rSuQaN.yW8Qc9zMo./G5Guet2sUGyhVXbnoHIONWVBEBd1VUBtuXG',
             'role' => 'user',
             'status' => 'active',
             'created_at' => now(),

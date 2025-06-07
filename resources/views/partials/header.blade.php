@@ -80,10 +80,15 @@
                     <span class="count">0</span>
                 </a>
                 @auth
-                    <a href="{{ route('auth.logout') }}" class="action-btn">
+                    <a href="{{ route('auth.logout') }}" class="action-btn" onclick="confirmLogout(event, this)">
                         <ion-icon name="log-out-outline"></ion-icon>
                     </a>
                 @endauth
+                @if (Auth::check() && Auth::user()->role == 'admin')
+                    <a href="{{ route('admin.index') }}" class="action-btn">
+                        <ion-icon name="settings-outline"></ion-icon>
+                    </a>
+                @endif
             </div>
         </div>
     </div>

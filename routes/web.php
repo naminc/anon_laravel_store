@@ -43,10 +43,14 @@ Route::get('/',[HomeController::class,'index'])->name('home');
 Route::get('/home',[HomeController::class,'index'])->name('home.page');
 Route::get('/admin', [AdminController::class, 'index'])->middleware('admin')->name('admin.index');
 Route::get('/cart', [CartController::class, 'index'])->name('cart.page');
-Route::get('/admin/categories', [CategoryController::class, 'index'])->middleware('admin')->name('admin.categories.index');
-Route::get('/admin/products', [ProductController::class, 'index'])->middleware('admin')->name('admin.products.index');
 
-
-Route::get('/admin/users', [UserController::class, 'index'])->middleware('admin')->name('admin.users.index');
-Route::get('/admin/orders', [OrderController::class, 'index'])->middleware('admin')->name('admin.orders.index');
-Route::get('/admin/settings', [SettingController::class, 'index'])->middleware('admin')->name('admin.settings.index');
+Route::prefix('admin')->middleware(['admin'])->group(function () {
+    Route::get('/users', [UserController::class, 'index'])->name('admin.users.index');
+    Route::get('/orders', [OrderController::class, 'index'])->name('admin.orders.index');
+    Route::get('/categories', [CategoryController::class, 'index'])->name('admin.categories.index');
+    Route::get('/products', [ProductController::class, 'index'])->name('admin.products.index');
+    Route::get('/settings', [SettingController::class, 'index'])->name('admin.settings.index');
+    Route::post('/settings', [SettingController::class, 'update'])->name('admin.settings.update');
+    Route::post('/categories/store', [CategoryController::class, 'store'])->name('admin.categories.store');
+    Route::post('/categories/update', [CategoryController::class, 'update'])->name('admin.categories.update');
+});

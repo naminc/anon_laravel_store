@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Providers;
-
+use Illuminate\Support\Facades\View;
 use App\Services\Interfaces\UserServiceInterface;
 use App\Services\UserService;
 use App\Repositories\Interfaces\UserRepositoryInterface;
@@ -13,7 +13,11 @@ use App\Services\Interfaces\SettingServiceInterface;
 use App\Services\SettingService;
 use App\Repositories\Interfaces\SettingRepositoryInterface;
 use App\Repositories\SettingRepository;
-
+use Illuminate\Support\Facades\Cache;
+use App\Services\Interfaces\CategoryServiceInterface;
+use App\Services\CategoryService;
+use App\Repositories\Interfaces\CategoryRepositoryInterface;
+use App\Repositories\CategoryRepository;
 class AppServiceProvider extends ServiceProvider
 {
 
@@ -23,6 +27,8 @@ class AppServiceProvider extends ServiceProvider
         UserRepositoryInterface::class => UserRepository::class,
         SettingServiceInterface::class => SettingService::class,
         SettingRepositoryInterface::class => SettingRepository::class,
+        CategoryServiceInterface::class => CategoryService::class,
+        CategoryRepositoryInterface::class => CategoryRepository::class,
     ];
     /**
      * Register any application services.
@@ -43,6 +49,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $setting = Cache::rememberForever('site_setting', function () {
+            return app(SettingServiceInterface::class)->get();
+        });
+        View::share('setting', $setting);
     }
 }

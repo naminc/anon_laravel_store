@@ -30,6 +30,5 @@ class SettingSeeder extends Seeder
                 'maintenance_mode' => 'off',
             ]
         );
-        
     }
 }

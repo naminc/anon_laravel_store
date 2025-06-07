@@ -7,7 +7,7 @@
             <ul class="footer-nav-list">
 
                 <li class="footer-nav-item">
-                    <h2 class="nav-title">Popular Categories</h2>
+                    <h2 class="nav-title">Categories</h2>
                 </li>
 
                 <li class="footer-nav-item">
@@ -128,8 +128,7 @@
                     </div>
 
                     <address class="content">
-                        419 State 414 Rte
-                        Beaver Dams, New York(NY), 14812, USA
+                        {{ $setting->address }}
                     </address>
                 </li>
 
@@ -138,7 +137,7 @@
                         <ion-icon name="call-outline"></ion-icon>
                     </div>
 
-                    <a href="tel:+607936-8058" class="footer-nav-link">+84 909 123 456</a>
+                    <a href="tel:{{ $setting->phone }}" class="footer-nav-link">{{ $setting->phone }}</a>
                 </li>
 
                 <li class="footer-nav-item flex">
@@ -146,7 +145,7 @@
                         <ion-icon name="mail-outline"></ion-icon>
                     </div>
 
-                    <a href="mailto:example@gmail.com" class="footer-nav-link">admin@naminc.io</a>
+                    <a href="mailto:{{ $setting->email }}" class="footer-nav-link">{{ $setting->email }}</a>
                 </li>
 
             </ul>
