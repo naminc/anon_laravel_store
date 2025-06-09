@@ -25,11 +25,11 @@
         @include('admin.partials.footer')
         @include('admin.partials.control-sidebar')
     </div>
-    <script src="{{ asset('admin-assets/libs-bower/jquery/dist/jquery.min.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ asset('admin-assets/libs-bower/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('admin-assets/adminlte/js/adminlte.min.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @stack('scripts')
     @include('components.admin.alert')
     @include('components.confirm-logout')

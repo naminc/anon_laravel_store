@@ -45,12 +45,26 @@ Route::get('/admin', [AdminController::class, 'index'])->middleware('admin')->na
 Route::get('/cart', [CartController::class, 'index'])->name('cart.page');
 
 Route::prefix('admin')->middleware(['admin'])->group(function () {
-    Route::get('/users', [UserController::class, 'index'])->name('admin.users.index');
-    Route::get('/orders', [OrderController::class, 'index'])->name('admin.orders.index');
-    Route::get('/categories', [CategoryController::class, 'index'])->name('admin.categories.index');
-    Route::get('/products', [ProductController::class, 'index'])->name('admin.products.index');
-    Route::get('/settings', [SettingController::class, 'index'])->name('admin.settings.index');
-    Route::post('/settings', [SettingController::class, 'update'])->name('admin.settings.update');
-    Route::post('/categories/store', [CategoryController::class, 'store'])->name('admin.categories.store');
-    Route::post('/categories/update', [CategoryController::class, 'update'])->name('admin.categories.update');
+    Route::prefix('users')->group(function () {
+        Route::get('/', [UserController::class, 'index'])->name('admin.users.index');
+        Route::post('/store', [UserController::class, 'store'])->name('admin.users.store');
+        Route::delete('/{id}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+    });
+    Route::prefix('orders')->group(function () {
+        Route::get('/', [OrderController::class, 'index'])->name('admin.orders.index');
+    });
+    Route::prefix('categories')->group(function () {
+        Route::get('/', [CategoryController::class, 'index'])->name('admin.categories.index');
+        Route::post('/store', [CategoryController::class, 'store'])->name('admin.categories.store');
+        Route::post('/update', [CategoryController::class, 'update'])->name('admin.categories.update');
+        Route::delete('/{id}', [CategoryController::class, 'destroy'])->name('admin.categories.destroy');
+    });
+    Route::prefix('products')->group(function () {
+        Route::get('/', [ProductController::class, 'index'])->name('admin.products.index');
+    });
+    Route::prefix('settings')->group(function () {
+        Route::get('/', [SettingController::class, 'index'])->name('admin.settings.index');
+        Route::post('/', [SettingController::class, 'update'])->name('admin.settings.update');
+    });
+    
 });

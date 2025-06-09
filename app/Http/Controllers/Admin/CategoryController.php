@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Category;
 use App\Services\Interfaces\CategoryServiceInterface;
+
 class CategoryController extends Controller
 {
     protected $categoryService;
@@ -32,9 +32,12 @@ class CategoryController extends Controller
         $this->categoryService->update($request->category_id, $data);
         return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully');
     }
-    public function delete($id)
+    public function destroy($id)
     {
-        $this->categoryService->delete($id);
-        return redirect()->route('admin.categories.index')->with('success', 'Category deleted successfully');
+        $result = $this->categoryService->delete($id);
+        return redirect()->route('admin.categories.index')->with(
+            $result ? 'success' : 'error',
+            $result ? 'Category deleted successfully' : 'Category delete failed'
+        );
     }
 }

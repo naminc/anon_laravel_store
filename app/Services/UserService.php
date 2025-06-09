@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Services\Interfaces\UserServiceInterface;
 use App\Models\User;
 use App\Repositories\Interfaces\UserRepositoryInterface as UserRepository;
+use Illuminate\Support\Facades\Hash;
 /**
  * Class UserService
  * @package App\Services
@@ -20,5 +21,13 @@ class UserService implements UserServiceInterface
     {
         return $this->userRepository->all();
     }
-    
+    public function create(array $data)
+    {
+        $data['password'] = Hash::make($data['password']);
+        return $this->userRepository->create($data);
+    }
+    public function delete($id)
+    {
+        return $this->userRepository->delete($id);
+    }
 }
