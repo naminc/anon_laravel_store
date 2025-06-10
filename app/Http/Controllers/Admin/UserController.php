@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Services\Interfaces\UserServiceInterface;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
+
 class UserController extends Controller
 {
     protected $userService;
@@ -22,6 +24,11 @@ class UserController extends Controller
     {
         $this->userService->create($request->validated());
         return redirect()->route('admin.users.index')->with('success', 'User created successfully');
+    }
+    public function update(UpdateUserRequest $request)
+    {
+        $this->userService->update($request->user_id, $request->validated());
+        return redirect()->route('admin.users.index')->with('success', 'User updated successfully');
     }
     public function destroy($id)
     {

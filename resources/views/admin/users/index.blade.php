@@ -59,7 +59,16 @@
                                     <td><span class="badge bg-black">{{ $user->updated_at->format('d-m-Y H:i:s') }}</span>
                                     </td>
                                     <td>
-                                        <a href="" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
+                                        <a href="#" class="btn btn-success btn-sm" data-toggle="modal"
+                                            data-target="#editUserModal" 
+                                            data-id="{{ $user->id }}"
+                                            data-fullname="{{ $user->fullname }}"
+                                            data-email="{{ $user->email }}"
+                                            data-password="{{ $user->password }}"
+                                            data-role="{{ $user->role }}"
+                                            data-status="{{ $user->status }}">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
                                         <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST"
                                             style="display:inline-block">
                                             @csrf @method('DELETE')
@@ -153,45 +162,58 @@
                     <h4 class="modal-title"><i class="fa fa-edit"></i> Edit User</h4>
                 </div>
                 <div class="modal-body">
-                    <form id="editUserForm" action="/admin/user-list" method="post">
-                        <input type="hidden" id="edit_user_id" name="user_id">
-                        <div class="form-group">
-                            <label for="edit_username">Username</label>
-                            <input type="text" class="form-control" id="edit_username" name="username" required
-                                readonly>
-                        </div>
+                    <form id="editUserForm" action="{{ route('admin.users.update') }}" method="post">
+                        @csrf
+                        <input type="hidden" id="edit_user_id" name="user_id" value="{{ old('user_id') }}">
                         <div class="form-group">
                             <label for="edit_email">Email</label>
-                            <input type="email" class="form-control" id="edit_email" name="email" required>
+                            <input type="email" class="form-control" id="edit_email" name="email" required value="{{ old('email') }}">
+                            @error('email')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                         <div class="form-group">
-                            <label for="edit_fullname">Họ tên</label>
+                            <label for="edit_fullname">FullName</label>
                             <input type="text" class="form-control" placeholder="Enter fullname" id="edit_fullname"
-                                name="fullname" required>
+                                name="fullname" required value="{{ old('fullname') }}">
+                            @error('fullname')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="edit_password">Password</label>
                             <input type="password" class="form-control" id="edit_password" name="password"
-                                placeholder="Enter password">
+                                placeholder="Enter password" value="{{ old('password') }}">
+                            @error('password')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                         <div class="form-group">
-                            <label for="edit_role">Vai trò</label>
+                            <label for="edit_role">Role</label>
                             <select class="form-control" id="edit_role" name="role" required>
-                                <option value="user">User
+                                <option value="">Choose role</option>
+                                <option value="user">User</option>
+                                <option value="admin">Admin</option>
                             </select>
+                            @error('role')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                         <div class="form-group">
-                            <label for="edit_phone">Số điện thoại</label>
-                            <input type="text" class="form-control" id="edit_phone" name="phone"
-                                placeholder="Nhập số điện thoại">
+                            <label for="edit_status">Status</label>
+                            <select class="form-control" id="edit_status" name="status" required>
+                                <option value="">Choose status</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                            @error('status')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                         <div class="form-group">
-                            <label for="edit_address">Địa chỉ</label>
-                            <textarea class="form-control" id="edit_address" name="address" placeholder="Nhập địa chỉ"></textarea>
+                            <button type="submit" class="btn bg-purple"><i class="fa fa-save"></i>
+                                Save</button>
                         </div>
-
-                        <button type="submit" name="update_user" class="btn btn-primary"><i class="fa fa-save"></i> Lưu
-                            thay đổi</button>
                     </form>
                 </div>
             </div>
@@ -200,11 +222,37 @@
 @endsection
 @push('scripts')
     @include('components.confirm-delete')
-    @if ($errors->any())
-        <script>
-            $(document).ready(function() {
-                $('#addUserModal').modal('show');
+    <script>
+        $(document).ready(function () {
+            $('#editUserModal').on('show.bs.modal', function (event) {
+                const button = $(event.relatedTarget);
+                const id = button.data('id');
+                const fullname = button.data('fullname');
+                const email = button.data('email');
+                const password = button.data('password');
+                const role = button.data('role');
+                const status = button.data('status');
+                $('#edit_user_id').val(id);
+                $('#edit_email').val(email);
+                $('#edit_fullname').val(fullname);
+                $('#edit_password').val('');
+                $('#edit_role').val(role);
+                $('#edit_status').val(status);
             });
-        </script>
+        });
+    </script>
+    @if ($errors->any() && session('form_error') === 'add')
+    <script>
+        $(document).ready(function() {
+            $('#addUserModal').modal('show');
+        });
+    </script>
+    @endif
+    @if ($errors->any() && session('form_error') === 'update')
+    <script>
+        $(document).ready(function() {
+            $('#editUserModal').modal('show');
+        });
+    </script>
     @endif
 @endpush

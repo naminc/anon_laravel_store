@@ -48,6 +48,7 @@ Route::prefix('admin')->middleware(['admin'])->group(function () {
     Route::prefix('users')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('admin.users.index');
         Route::post('/store', [UserController::class, 'store'])->name('admin.users.store');
+        Route::post('/update', [UserController::class, 'update'])->name('admin.users.update');
         Route::delete('/{id}', [UserController::class, 'destroy'])->name('admin.users.destroy');
     });
     Route::prefix('orders')->group(function () {

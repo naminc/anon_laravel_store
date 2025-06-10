@@ -85,12 +85,18 @@
                         <div class="form-group">
                             <label for="category_name">Category Name</label>
                             <input type="text" class="form-control" id="category_name" name="name"
-                                placeholder="Enter category name" value="" required>
+                                placeholder="Enter category name" value="{{ old('name') }}" required>
+                            @error('name')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="category_description">Description</label>
                             <textarea class="form-control" id="category_description" name="description" rows="3"
-                                placeholder="Enter category description" required></textarea>
+                                placeholder="Enter category description">{{ old('description') }}</textarea>
+                            @error('description')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -118,11 +124,17 @@
                             <label for="edit_category_name">Category Name</label>
                             <input type="text" class="form-control" id="edit_category_name" name="name"
                                 placeholder="Enter category name" required>
+                            @error('name')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="edit_category_description">Description</label>
                             <textarea class="form-control" id="edit_category_description" name="description" rows="3"
-                                placeholder="Enter category description" required></textarea>
+                                placeholder="Enter category description"></textarea>
+                            @error('description')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -150,4 +162,18 @@
             });
         });
     </script>
+    @if ($errors->any() && session('form_error') === 'add')
+    <script>
+        $(document).ready(function() {
+            $('#addCategoryModal').modal('show');
+        });
+    </script>
+    @endif
+    @if ($errors->any() && session('form_error') === 'update')
+    <script>
+        $(document).ready(function() {
+            $('#editCategoryModal').modal('show');
+        });
+    </script>
+    @endif
 @endpush

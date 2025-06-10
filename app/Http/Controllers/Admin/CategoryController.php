@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 use Illuminate\Http\Request;
 use App\Services\Interfaces\CategoryServiceInterface;
 
@@ -20,16 +22,14 @@ class CategoryController extends Controller
         return view('admin.categories.index', compact('categories'));
     }
 
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
-        $data = $request->only('name', 'description');
-        $this->categoryService->store($data);
+        $this->categoryService->store($request->validated());
         return redirect()->route('admin.categories.index')->with('success', 'Category created successfully');
     }
-    public function update(Request $request)
+    public function update(UpdateCategoryRequest $request)
     {
-        $data = $request->only('name', 'description');
-        $this->categoryService->update($request->category_id, $data);
+        $this->categoryService->update($request->category_id, $request->validated());
         return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully');
     }
     public function destroy($id)

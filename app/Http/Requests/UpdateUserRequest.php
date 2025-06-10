@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class StoreUserRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,25 +25,29 @@ class StoreUserRequest extends FormRequest
      */
     public function rules()
     {
+        $userId = $this->input('user_id');
         return [
+            'user_id' => 'required|exists:users,id',
             'fullname' => 'required|string|max:255',
-            'email'    => 'required|email|unique:users,email',
-            'password' => 'required|string|min:6',
-            'role'     => 'required|in:admin,user',
-            'status'   => 'required|in:active,inactive',
+            'email' => 'required|email|unique:users,email,' . $userId,
+            'password' => 'nullable|string|min:6',
+            'role' => 'required|in:admin,user',
+            'status' => 'required|in:active,inactive',
         ];
     }
 
     public function messages()
     {
         return [
-            'fullname.required' => 'FullName is required',
-            'fullname.string' => 'FullName must be a string',
-            'fullname.max' => 'FullName must be less than 255 characters',
+            'user_id.required' => 'User ID is required',
+            'user_id.exists' => 'User ID is not valid',
+            'fullname.required' => 'Fullname is required',
+            'fullname.string' => 'Fullname is not valid',
+            'fullname.max' => 'Fullname must be less than 255 characters',
             'email.required' => 'Email is required',
-            'email.email' => 'Email must be a valid email address',
+            'email.email' => 'Email is not valid',
             'email.unique' => 'Email already exists',
-            'password.required' => 'Password is required',
+            'password.string' => 'Password is not valid',
             'password.min' => 'Password must be at least 6 characters',
             'role.required' => 'Role is required',
             'role.in' => 'Role must be either admin or user',
@@ -54,7 +58,7 @@ class StoreUserRequest extends FormRequest
 
     protected function failedValidation(Validator $validator)
     {
-        session()->flash('form_error', 'add');
+        session()->flash('form_error', 'update');
         throw new HttpResponseException(
             redirect()->back()
                 ->withErrors($validator)
