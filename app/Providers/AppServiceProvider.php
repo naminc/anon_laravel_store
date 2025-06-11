@@ -18,6 +18,10 @@ use App\Services\Interfaces\CategoryServiceInterface;
 use App\Services\CategoryService;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\CategoryRepository;
+use App\Services\Interfaces\ProductServiceInterface;
+use App\Services\ProductService;
+use App\Repositories\Interfaces\ProductRepositoryInterface;
+use App\Repositories\ProductRepository;
 class AppServiceProvider extends ServiceProvider
 {
 
@@ -29,6 +33,8 @@ class AppServiceProvider extends ServiceProvider
         SettingRepositoryInterface::class => SettingRepository::class,
         CategoryServiceInterface::class => CategoryService::class,
         CategoryRepositoryInterface::class => CategoryRepository::class,
+        ProductServiceInterface::class => ProductService::class,
+        ProductRepositoryInterface::class => ProductRepository::class,
     ];
     /**
      * Register any application services.
