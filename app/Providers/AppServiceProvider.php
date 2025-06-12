@@ -61,7 +61,7 @@ class AppServiceProvider extends ServiceProvider
             $setting = Cache::rememberForever('site_setting', function () {
                 return app(SettingServiceInterface::class)->get();
             });
+            View::share('setting', $setting);
         }
-        View::share('setting', $setting);
     }
 }
