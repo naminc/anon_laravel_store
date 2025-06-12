@@ -20,7 +20,7 @@
                     </div>
                 </div>
                 <div class="box-body">
-
+                    <div class="table-responsive">
                     <table id="userTable" class="table table-bordered table-striped">
                         <thead>
                             <tr>
@@ -78,8 +78,9 @@
                                     </td>
                                 </tr>
                             @endforeach
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </section>
@@ -167,7 +168,7 @@
                         <input type="hidden" id="edit_user_id" name="user_id" value="{{ old('user_id') }}">
                         <div class="form-group">
                             <label for="edit_email">Email</label>
-                            <input type="email" class="form-control" id="edit_email" name="email" required value="{{ old('email') }}">
+                            <input type="email" class="form-control" id="edit_email" placeholder="Enter email address" name="email" required value="{{ old('email') }}">
                             @error('email')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror

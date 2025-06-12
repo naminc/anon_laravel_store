@@ -28,10 +28,10 @@ use App\Http\Middleware\AdminMiddleware;
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 Route::middleware(['login'])->group(function () {
-    Route::get('auth/login',[AuthController::class,'showLoginForm'])->name('auth.login.page');
-    Route::get('auth/register',[AuthController::class,'showRegisterForm'])->name('auth.register.page');
-    Route::post('auth/login',[AuthController::class,'login'])->name('auth.login');
-    Route::post('auth/register',[AuthController::class,'register'])->name('auth.register');
+    Route::get('auth/login', [AuthController::class, 'showLoginForm'])->name('auth.login.page');
+    Route::get('auth/register', [AuthController::class, 'showRegisterForm'])->name('auth.register.page');
+    Route::post('auth/login', [AuthController::class, 'login'])->name('auth.login');
+    Route::post('auth/register', [AuthController::class, 'register'])->name('auth.register');
 });
 
 // Route::middleware(['authenticate', 'check.user.status'])->group(function () {
@@ -39,8 +39,8 @@ Route::middleware(['login'])->group(function () {
 //     Route::get('/home',[HomeController::class,'index'])->name('home.page');
 // });
 
-Route::get('/',[HomeController::class,'index'])->name('home');
-Route::get('/home',[HomeController::class,'index'])->name('home.page');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home.page');
 Route::get('/admin', [AdminController::class, 'index'])->middleware('admin')->name('admin.index');
 Route::get('/cart', [CartController::class, 'index'])->name('cart.page');
 
@@ -53,6 +53,10 @@ Route::prefix('admin')->middleware(['admin'])->group(function () {
     });
     Route::prefix('orders')->group(function () {
         Route::get('/', [OrderController::class, 'index'])->name('admin.orders.index');
+        Route::post('/store', [OrderController::class, 'store'])->name('admin.orders.store');
+        Route::post('/update', [OrderController::class, 'update'])->name('admin.orders.update');
+        Route::delete('/{id}', [OrderController::class, 'destroy'])->name('admin.orders.destroy');
+        Route::patch('/{id}/status', [OrderController::class, 'updateStatus'])->name('admin.orders.updateStatus');
     });
     Route::prefix('categories')->group(function () {
         Route::get('/', [CategoryController::class, 'index'])->name('admin.categories.index');
@@ -70,5 +74,4 @@ Route::prefix('admin')->middleware(['admin'])->group(function () {
         Route::get('/', [SettingController::class, 'index'])->name('admin.settings.index');
         Route::post('/', [SettingController::class, 'update'])->name('admin.settings.update');
     });
-    
 });

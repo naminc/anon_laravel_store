@@ -2,12 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Interfaces\ProductServiceInterface;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    protected $productService;
+    public function __construct(ProductServiceInterface $productService)
+    {
+        $this->productService = $productService;
+    }
     public function index()
     {
-        return view('home');
+        $products = $this->productService->getAll();
+        dd($products);
+        return view('home', compact('products'));
     }
 }

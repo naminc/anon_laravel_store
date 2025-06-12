@@ -5,7 +5,9 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Schema;
 use App\Services\Interfaces\SettingServiceInterface;
+
 class CheckMaintenanceMode
 {
     /**
@@ -23,10 +25,12 @@ class CheckMaintenanceMode
     }
     public function handle(Request $request, Closure $next)
     {
-        $setting = $this->settingService->get();
-        if ($setting->maintenance_mode == 'on') {
-            if (!Auth::check() || Auth::user()->role != 'admin') {
-                return response()->view('maintenance');
+        if (Schema::hasTable('settings')) {
+            $setting = $this->settingService->get();
+            if ($setting && $setting->maintenance_mode == 'on') {
+                if (!Auth::check() || Auth::user()->role != 'admin') {
+                    return response()->view('maintenance');
+                }
             }
         }
         return $next($request);

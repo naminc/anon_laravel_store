@@ -19,6 +19,7 @@
                     </div>
                 </div>
                 <div class="box-body">
+                    <div class="table-responsive">
                     <table id="categoryTable" class="table table-bordered table-striped">
                         <thead>
                             <tr>
@@ -65,7 +66,8 @@
                                 </tr>
                             @endif
                         </tbody>
-                    </table>
+                        </table>
+                    </div>
                 </div>
             </div>
         </section>

@@ -22,6 +22,8 @@ use App\Services\Interfaces\ProductServiceInterface;
 use App\Services\ProductService;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Repositories\ProductRepository;
+use Illuminate\Support\Facades\Schema;
+
 class AppServiceProvider extends ServiceProvider
 {
 
@@ -55,9 +57,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $setting = Cache::rememberForever('site_setting', function () {
-            return app(SettingServiceInterface::class)->get();
-        });
+        if (Schema::hasTable('settings')) {
+            $setting = Cache::rememberForever('site_setting', function () {
+                return app(SettingServiceInterface::class)->get();
+            });
+        }
         View::share('setting', $setting);
     }
 }

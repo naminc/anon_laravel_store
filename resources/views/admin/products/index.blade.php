@@ -19,69 +19,71 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    <table id="productTable" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Category</th>
-                                <th>Name</th>
-                                <th>Price</th>
-                                <th>Images</th>
-                                <th>Description</th>
-                                <th>Status</th>
-                                <th>Created At</th>
-                                <th>Updated At</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($products as $i => $product)
+                    <div class="table-responsive">
+                        <table id="productTable" class="table table-bordered table-striped">
+                            <thead>
                                 <tr>
-                                    <td>{{ $i + 1 }}</td>
-                                    <td>{{ $product->category->name }}</td>
-                                    <td>{{ $product->name }}</td>
-                                    <td><span class="badge bg-red">{{ $product->price }}$</span></td>
-                                    <td>
-                                        <img src="{{ asset($product->images) }}" alt="{{ $product->name }}"
-                                            class="img-thumbnail" style="width: 90px; height: 90px;">
-                                    </td>
-                                    <td>{{ $product->description }}</td>
-                                    <td>
-                                        <span class="badge bg-{{ $product->status == 'active' ? 'green' : 'red' }}">
-                                            {{ $product->status }}
-                                        </span>
-                                    </td>
-                                    <td><span
-                                            class="badge bg-black">{{ $product->created_at->format('d-m-Y H:i:s') }}</span>
-                                    </td>
-                                    <td><span
-                                            class="badge bg-black">{{ $product->updated_at->format('d-m-Y H:i:s') }}</span>
-                                    </td>
-                                    <td>
-                                        <a href="#" class="btn btn-success btn-sm" data-toggle="modal"
-                                            data-target="#editProductModal" data-id="{{ $product->id }}"
-                                            data-name="{{ $product->name }}" data-price="{{ $product->price }}"
-                                            data-description="{{ $product->description }}"
-                                            data-status="{{ $product->status }}"
-                                            data-category_id="{{ $product->category_id }}">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
-                                        <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST"
-                                            style="display:inline-block">
-                                            @csrf @method('DELETE')
-                                            <button onclick="return confirmDelete(event, this)"
-                                                class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                                        </form>
-                                    </td>
+                                    <th>#</th>
+                                    <th>Category</th>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>Images</th>
+                                    <th>Description</th>
+                                    <th>Status</th>
+                                    <th>Created At</th>
+                                    <th>Updated At</th>
+                                    <th>Action</th>
                                 </tr>
-                            @endforeach
-                            @if ($products->isEmpty())
-                                <tr>
-                                    <td colspan="10" class="text-center">No data found</td>
-                                </tr>
-                            @endif
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach ($products as $i => $product)
+                                    <tr>
+                                        <td>{{ $i + 1 }}</td>
+                                        <td>{{ $product->category->name }}</td>
+                                        <td>{{ $product->name }}</td>
+                                        <td><span class="badge bg-red">{{ $product->price }}$</span></td>
+                                        <td>
+                                            <img src="{{ asset($product->images) }}" alt="{{ $product->name }}"
+                                                class="img-thumbnail" style="width: 90px; height: 90px;">
+                                        </td>
+                                        <td>{{ $product->description }}</td>
+                                        <td>
+                                            <span class="badge bg-{{ $product->status == 'active' ? 'green' : 'red' }}">
+                                                {{ $product->status }}
+                                            </span>
+                                        </td>
+                                        <td><span
+                                                class="badge bg-black">{{ $product->created_at->format('d-m-Y H:i:s') }}</span>
+                                        </td>
+                                        <td><span
+                                                class="badge bg-black">{{ $product->updated_at->format('d-m-Y H:i:s') }}</span>
+                                        </td>
+                                        <td>
+                                            <a href="#" class="btn btn-success btn-sm" data-toggle="modal"
+                                                data-target="#editProductModal" data-id="{{ $product->id }}"
+                                                data-name="{{ $product->name }}" data-price="{{ $product->price }}"
+                                                data-description="{{ $product->description }}"
+                                                data-status="{{ $product->status }}"
+                                                data-category_id="{{ $product->category_id }}">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                            <form action="{{ route('admin.products.destroy', $product->id) }}"
+                                                method="POST" style="display:inline-block">
+                                                @csrf @method('DELETE')
+                                                <button onclick="return confirmDelete(event, this)"
+                                                    class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                @if ($products->isEmpty())
+                                    <tr>
+                                        <td colspan="10" class="text-center">No data found</td>
+                                    </tr>
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </section>
@@ -189,28 +191,32 @@
                         </div>
                         <div class="form-group">
                             <label>Name</label>
-                            <input name="name" type="text" id="edit_name" placeholder="Enter product name" class="form-control" required>
+                            <input name="name" type="text" id="edit_name" placeholder="Enter product name"
+                                class="form-control" required>
                             @error('name')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label>Price</label>
-                            <input name="price" id="edit_price" type="number" step="0.01" placeholder="Enter product price" class="form-control" required>
+                            <input name="price" id="edit_price" type="number" step="0.01"
+                                placeholder="Enter product price" class="form-control" required>
                             @error('price')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label>Image (replace)</label>
-                            <input type="file" name="images" class="form-control" placeholder="Enter product images" accept="image/*">
+                            <input type="file" name="images" class="form-control" placeholder="Enter product images"
+                                accept="image/*">
                             @error('images')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label>Description</label>
-                            <textarea name="description" id="edit_description" rows="3" class="form-control" placeholder="Enter product description"></textarea>
+                            <textarea name="description" id="edit_description" rows="3" class="form-control"
+                                placeholder="Enter product description"></textarea>
                             @error('description')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror

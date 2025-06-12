@@ -221,64 +221,11 @@
                                 <a href="#">Microphone</a>
                             </li>
 
-                            <li class="panel-list-item">
-                                <a href="#">
-                                    <img src="/assets/images/electronics-banner-2.jpg" alt="mouse collection"
-                                        width="250" height="119">
-                                </a>
-                            </li>
+                            
 
                         </ul>
 
                     </div>
-                </li>
-
-                <li class="menu-category">
-                    <a href="#" class="menu-title">Men's</a>
-
-                    <ul class="dropdown-list">
-
-                        <li class="dropdown-item">
-                            <a href="#">Shirt</a>
-                        </li>
-
-                        <li class="dropdown-item">
-                            <a href="#">Shorts & Jeans</a>
-                        </li>
-
-                        <li class="dropdown-item">
-                            <a href="#">Safety Shoes</a>
-                        </li>
-
-                        <li class="dropdown-item">
-                            <a href="#">Wallet</a>
-                        </li>
-
-                    </ul>
-                </li>
-
-                <li class="menu-category">
-                    <a href="#" class="menu-title">Women's</a>
-
-                    <ul class="dropdown-list">
-
-                        <li class="dropdown-item">
-                            <a href="#">Dress & Frock</a>
-                        </li>
-
-                        <li class="dropdown-item">
-                            <a href="#">Earrings</a>
-                        </li>
-
-                        <li class="dropdown-item">
-                            <a href="#">Necklace</a>
-                        </li>
-
-                        <li class="dropdown-item">
-                            <a href="#">Makeup Kit</a>
-                        </li>
-
-                    </ul>
                 </li>
 
 
