@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 use App\Services\Interfaces\SettingServiceInterface;
+use Illuminate\Support\Facades\Log;
 
 class CheckMaintenanceMode
 {
@@ -25,13 +26,17 @@ class CheckMaintenanceMode
     }
     public function handle(Request $request, Closure $next)
     {
-        if (Schema::hasTable('settings')) {
-            $setting = $this->settingService->get();
-            if ($setting && $setting->maintenance_mode == 'on') {
-                if (!Auth::check() || Auth::user()->role != 'admin') {
-                    return response()->view('maintenance');
+        try {
+            if (Schema::hasTable('settings')) {
+                $setting = $this->settingService->get();
+                if ($setting && $setting->maintenance_mode === 'on') {
+                    if (!Auth::check() || Auth::user()->role !== 'admin') {
+                        return response()->view('maintenance');
+                    }
                 }
             }
+        } catch (\Throwable $e) {
+            Log::error('[MaintenanceModeMiddleware] ' . $e->getMessage());
         }
         return $next($request);
     }

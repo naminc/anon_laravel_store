@@ -15,7 +15,6 @@ class HomeController extends Controller
     public function index()
     {
         $products = $this->productService->getAll();
-        dd($products);
         return view('home', compact('products'));
     }
 }
