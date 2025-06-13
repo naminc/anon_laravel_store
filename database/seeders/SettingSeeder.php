@@ -20,13 +20,13 @@ class SettingSeeder extends Seeder
         Setting::updateOrCreate(
             ['id' => 1],
             [
-                'title'            => 'My Website',
+                'title'            => 'My Laravel Website',
                 'keyword'          => 'my website, my blog',
                 'description'      => 'This is my website',
                 'logo'             => '/assets/images/logo/logo.svg',
                 'icon'             => '/assets/images/logo/favicon.ico',
                 'domain'           => 'naminc.io',
-                'author'    => 'NAMINC',
+                'author'    => 'naminc',
                 'maintenance_mode' => 'off',
             ]
         );
