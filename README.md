@@ -80,3 +80,9 @@ app/
 - Composer
 - MySQL or MariaDB
 - Laravel >= 9.x
+
+## 📄 License
+
+Released under the [MIT License](LICENSE)  
+© 2025 [naminc](https://github.com/naminc)
+
