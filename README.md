@@ -1,10 +1,10 @@
 # 📦 My Laravel App
 
-[![Laravel](https://img.shields.io/badge/Laravel-10.x-red.svg?logo=laravel)](https://laravel.com/)
+[![Laravel](https://img.shields.io/badge/Laravel-9.x-red.svg?logo=laravel)](https://laravel.com/)
 [![License](https://img.shields.io/github/license/naminc/my_laravel_app)](LICENSE)
-[![PHP](https://img.shields.io/badge/PHP-8.1+-8892be.svg?logo=php)](https://www.php.net/)
+[![PHP](https://img.shields.io/badge/PHP-8.0+-8892be.svg?logo=php)](https://www.php.net/)
 
-Dự án Laravel cấu trúc chuẩn theo mô hình **Repository – Service – Interface**.
+Dự án Shop Thời Trang Laravel cấu trúc chuẩn theo mô hình **Repository – Service – Interface**.
 
 ---
 
@@ -67,7 +67,6 @@ Truy cập tại [http://localhost:8000](http://localhost:8000)
 ```
 app/
 ├── Http/Controllers/
-├── Interfaces/
 ├── Repositories/
 ├── Services/
 └── Models/
@@ -77,6 +76,6 @@ app/
 
 ## 🛠 Yêu cầu
 
-- PHP >= 8.1
+- PHP >= 8.0
 - Composer
-- Laravel >= 10.x
+- Laravel >= 9.x
