@@ -14,7 +14,6 @@ A Fashion Shop project built with Laravel, structured following the **Repository
 
 ```bash
 git clone https://github.com/naminc/my_laravel_app.git
-cd my_laravel_app
 ```
 
 ### 2. (Optional) Move code out if it's inside a subfolder:
