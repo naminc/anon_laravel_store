@@ -73,6 +73,11 @@ app/
 
 ---
 
+## 🔐 Data Test Account
+
+- **Email**: `admin@naminc.dev`  
+- **Password**: `123456`
+
 ## 🛠 Requirements
 
 - PHP >= 8.0
