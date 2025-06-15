@@ -15,7 +15,6 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        DB::table('categories')->truncate();
         $categories = [
             [
                 'id' => 1,

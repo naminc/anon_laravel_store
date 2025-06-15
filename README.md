@@ -47,8 +47,7 @@ composer install
 
 ```bash
 php artisan key:generate
-php artisan migrate
-php artisan db:seed
+php artisan migrate:fresh --seed
 ```
 
 ### 6. Start the development server
