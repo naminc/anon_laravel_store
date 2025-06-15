@@ -77,6 +77,7 @@ app/
 
 - **Email**: `admin@naminc.dev`  
 - **Password**: `123456`
+- **Role**: `Admin`
 
 ## 🛠 Requirements
 
