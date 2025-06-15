@@ -6,6 +6,7 @@ use App\Services\Interfaces\UserServiceInterface;
 use App\Models\User;
 use App\Repositories\Interfaces\UserRepositoryInterface as UserRepository;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Cache;
 /**
  * Class UserService
  * @package App\Services
@@ -19,15 +20,19 @@ class UserService implements UserServiceInterface
     }
     public function getAll()
     {
-        return $this->userRepository->all();
+        return Cache::rememberForever('all_users', function () {
+            return $this->userRepository->all();
+        });
     }
     public function create(array $data)
     {
+        Cache::forget('all_users');
         $data['password'] = Hash::make($data['password']);
         return $this->userRepository->create($data);
     }
     public function update($id, array $data)
     {
+        Cache::forget('all_users');
         if (isset($data['password'])) {
             $data['password'] = Hash::make($data['password']);
         } else {
@@ -37,6 +42,7 @@ class UserService implements UserServiceInterface
     }
     public function delete($id)
     {
+        Cache::forget('all_users');
         return $this->userRepository->delete($id);
     }
 }

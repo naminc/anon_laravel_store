@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Services\Interfaces\CategoryServiceInterface;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cache;
 /**
  * Class CategoryService
  * @package App\Services
@@ -19,7 +20,9 @@ class CategoryService implements CategoryServiceInterface
     }
     public function getAll()
     {
-        return $this->categoryRepo->all();
+        return Cache::rememberForever('all_categories', function () {
+            return $this->categoryRepo->all();
+        });
     }
     public function getById($id)
     {
@@ -27,6 +30,7 @@ class CategoryService implements CategoryServiceInterface
     }
     public function store(array $data)
     {
+        Cache::forget('all_categories');
         if (isset($data['icon']) && $data['icon'] instanceof \Illuminate\Http\UploadedFile) {
             $filename = time() . '_' . $data['icon']->getClientOriginalName();
             $path = $data['icon']->storeAs('uploads/categories', $filename, 'public');
@@ -36,6 +40,7 @@ class CategoryService implements CategoryServiceInterface
     }
     public function update($id, array $data)
     {
+        Cache::forget('all_categories');
         $category = $this->categoryRepo->find($id);
         if (isset($data['icon']) && $data['icon'] instanceof \Illuminate\Http\UploadedFile) {
             if ($category->icon && Storage::disk('public')->exists(str_replace('storage/', '', $category->icon))) {
@@ -51,6 +56,7 @@ class CategoryService implements CategoryServiceInterface
     }
     public function delete($id)
     {
+        Cache::forget('all_categories');
         return $this->categoryRepo->delete($id);
     }
 }
