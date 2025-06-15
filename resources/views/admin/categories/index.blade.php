@@ -25,6 +25,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
+                                <th>Icon</th>
                                 <th>Description</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
@@ -36,12 +37,13 @@
                                 <tr>
                                     <td>{{ $i + 1 }}</td>
                                     <td>{{ $category->name }}</td>
+                                    <td><img src="{{ asset($category->icon) }}" alt="Icon" class="" style="width: 40px; height: 40px;"></td>
                                     <td>{{ $category->description }}</td>
                                     <td><span
-                                            class="badge bg-black">{{ $category->created_at->format('d-m-Y H:i:s') }}</span>
+                                            class="badge bg-green">{{ $category->created_at->format('d-m-Y H:i:s') }}</span>
                                     </td>
                                     <td><span
-                                            class="badge bg-black">{{ $category->updated_at->format('d-m-Y H:i:s') }}</span>
+                                            class="badge bg-blue">{{ $category->updated_at->format('d-m-Y H:i:s') }}</span>
                                     </td>
                                     <td>
                                         <a href="#" class="btn btn-success btn-sm" data-toggle="modal"
@@ -75,7 +77,7 @@
     <div class="modal fade" id="addCategoryModal">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="{{ route('admin.categories.store') }}" method="POST">
+                <form action="{{ route('admin.categories.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -100,6 +102,13 @@
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <label for="category_icon">Icon</label>
+                            <input type="file" class="form-control" id="category_icon" name="icon" accept="image/*" required>
+                            @error('icon')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
@@ -112,7 +121,7 @@
     <div class="modal fade" id="editCategoryModal">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="{{ route('admin.categories.update') }}" method="POST">
+                <form action="{{ route('admin.categories.update') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -135,6 +144,13 @@
                             <textarea class="form-control" id="edit_category_description" name="description" rows="3"
                                 placeholder="Enter category description"></textarea>
                             @error('description')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_category_icon">Icon</label>
+                            <input type="file" class="form-control" id="edit_category_icon" name="icon" accept="image/*">
+                            @error('icon')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>

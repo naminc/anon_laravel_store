@@ -28,6 +28,7 @@ class StoreCategoryRequest extends FormRequest
         return [
             'name'        => 'required|string|max:255|unique:categories,name',
             'description' => 'nullable|string|max:1000',
+            'icon'        => 'required|image|mimes:jpg,jpeg,png,svg|max:2048',
         ];
     }
 
@@ -40,6 +41,10 @@ class StoreCategoryRequest extends FormRequest
             'name.unique' => 'Name already exists',
             'description.string' => 'Description must be a string',
             'description.max' => 'Description must be less than 1000 characters',
+            'icon.required' => 'Icon is required',
+            'icon.image' => 'Icon must be an image',
+            'icon.mimes' => 'Icon must be in jpg, jpeg, png, or svg format',
+            'icon.max' => 'Icon must be less than 2MB',
         ];
     }
     protected function failedValidation(Validator $validator)

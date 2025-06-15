@@ -53,10 +53,10 @@
                                             </span>
                                         </td>
                                         <td><span
-                                                class="badge bg-black">{{ $product->created_at->format('d-m-Y H:i:s') }}</span>
+                                                class="badge bg-green">{{ $product->created_at->format('d-m-Y H:i:s') }}</span>
                                         </td>
                                         <td><span
-                                                class="badge bg-black">{{ $product->updated_at->format('d-m-Y H:i:s') }}</span>
+                                                class="badge bg-blue">{{ $product->updated_at->format('d-m-Y H:i:s') }}</span>
                                         </td>
                                         <td>
                                             <a href="#" class="btn btn-success btn-sm" data-toggle="modal"

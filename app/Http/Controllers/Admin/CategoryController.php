@@ -29,7 +29,11 @@ class CategoryController extends Controller
     }
     public function update(UpdateCategoryRequest $request)
     {
-        $this->categoryService->update($request->category_id, $request->validated());
+        $data = $request->validated();
+        if ($request->hasFile('icon')) {
+            $data['icon'] = $request->file('icon');
+        }
+        $this->categoryService->update($request->category_id, $data);
         return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully');
     }
     public function destroy($id)

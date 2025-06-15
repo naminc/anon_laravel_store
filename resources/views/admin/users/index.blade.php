@@ -27,8 +27,8 @@
                                 <th>#</th>
                                 <th>FullName</th>
                                 <th>Email</th>
-                                <th>Role</th>
                                 <th>Status</th>
+                                <th>Role</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
                                 <th>Action</th>
@@ -41,22 +41,22 @@
                                     <td>{{ $user->fullname }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>
-                                        @if ($user->role === 'admin')
-                                            <span class="badge bg-blue text-dark">Admin</span>
-                                        @elseif ($user->role === 'user')
-                                            <span class="badge bg-maroon text-dark">User</span>
-                                        @endif
-                                    </td>
-                                    <td>
                                         @if ($user->status === 'active')
                                             <span class="badge bg-green">Active</span>
                                         @else
                                             <span class="badge bg-red">Inactive</span>
                                         @endif
                                     </td>
-                                    <td><span class="badge bg-black">{{ $user->created_at->format('d-m-Y H:i:s') }}</span>
+                                    <td>
+                                        @if ($user->role === 'admin')
+                                            <span class="badge bg-blue text-dark">Admin</span>
+                                        @elseif ($user->role === 'user')
+                                            <span class="badge bg-maroon text-dark">User</span>
+                                        @endif
                                     </td>
-                                    <td><span class="badge bg-black">{{ $user->updated_at->format('d-m-Y H:i:s') }}</span>
+                                    <td><span class="badge bg-green">{{ $user->created_at->format('d-m-Y H:i:s') }}</span>
+                                    </td>
+                                    <td><span class="badge bg-blue">{{ $user->updated_at->format('d-m-Y H:i:s') }}</span>
                                     </td>
                                     <td>
                                         <a href="#" class="btn btn-success btn-sm" data-toggle="modal"
