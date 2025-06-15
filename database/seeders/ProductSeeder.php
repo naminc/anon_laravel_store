@@ -21,7 +21,7 @@ class ProductSeeder extends Seeder
                 'name' => 'Mens Winter Leathers Jackets',
                 'description' => 'Mens Winter Leathers Jackets',
                 'price' => 48,
-                'images' => 'storage/uploads/products/1749629557_jacket-1.jpg',
+                'images' => 'assets/images/products/jacket-1.jpg',
                 'category_id' => 1,
                 'status' => 'active',
                 'created_at' => now(),

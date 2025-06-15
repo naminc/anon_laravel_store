@@ -43,11 +43,12 @@ DB_PASSWORD=your_password
 composer install
 ```
 
-### 5. Generate the app key and run migrations + seeders
+### 5. Generate the app key, run migrations + seeders, and create storage link
 
 ```bash
 php artisan key:generate
 php artisan migrate:fresh --seed
+php artisan storage:link
 ```
 
 ### 6. Start the development server
