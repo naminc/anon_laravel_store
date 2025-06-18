@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 use Illuminate\Support\Facades\View;
+use App\Http\View\Composers\CartComposer;
 use App\Services\Interfaces\UserServiceInterface;
 use App\Services\UserService;
 use App\Repositories\Interfaces\UserRepositoryInterface;
@@ -22,6 +23,10 @@ use App\Services\Interfaces\ProductServiceInterface;
 use App\Services\ProductService;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Repositories\ProductRepository;
+use App\Services\Interfaces\CartServiceInterface;
+use App\Services\CartService;
+use App\Repositories\Interfaces\CartRepositoryInterface;
+use App\Repositories\CartRepository;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
 
@@ -38,6 +43,8 @@ class AppServiceProvider extends ServiceProvider
         CategoryRepositoryInterface::class => CategoryRepository::class,
         ProductServiceInterface::class => ProductService::class,
         ProductRepositoryInterface::class => ProductRepository::class,
+        CartServiceInterface::class => CartService::class,
+        CartRepositoryInterface::class => CartRepository::class,
     ];
     /**
      * Register any application services.
@@ -68,5 +75,14 @@ class AppServiceProvider extends ServiceProvider
         } catch (\Throwable $e) {
             Log::error('[AppServiceProvider] ' . $e->getMessage());
         }
+        try {
+            if (Schema::hasTable('categories')) {
+                $categories = app(CategoryServiceInterface::class)->getAll();
+                View::share('categories', $categories);
+            }
+        } catch (\Throwable $e) {
+            Log::error('[AppServiceProvider - All Categories] ' . $e->getMessage());
+        }
+        View::composer('*', CartComposer::class);
     }
 }

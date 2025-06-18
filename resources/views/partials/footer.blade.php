@@ -5,41 +5,13 @@
                 <li class="footer-nav-item">
                     <h2 class="nav-title">Categories</h2>
                 </li>
+                @foreach ($categories as $category)
+                @if ($loop->index < 5)
                 <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">Fashion</a>
+                    <a href="#" class="footer-nav-link">{{ $category->name }}</a>
                 </li>
-                <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">Electronic</a>
-                </li>
-                <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">Cosmetic</a>
-                </li>
-                <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">Health</a>
-                </li>
-                <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">Watches</a>
-                </li>
-            </ul>
-            <ul class="footer-nav-list">
-                <li class="footer-nav-item">
-                    <h2 class="nav-title">Products</h2>
-                </li>
-                <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">Prices drop</a>
-                </li>
-                <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">New products</a>
-                </li>
-                <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">Best sales</a>
-                </li>
-                <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">Contact us</a>
-                </li>
-                <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">Sitemap</a>
-                </li>
+                @endif
+                @endforeach
             </ul>
             <ul class="footer-nav-list">
                 <li class="footer-nav-item">

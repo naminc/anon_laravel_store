@@ -74,10 +74,9 @@
                 </a>
                 <a href="{{ route('cart.page') }}" class="action-btn"
                     @guest
-                    onclick="return showLoginAlert(event)"
-                    @endguest>
+onclick="return showLoginAlert(event)" @endguest>
                     <ion-icon name="bag-handle-outline"></ion-icon>
-                    <span class="count">0</span>
+                    <span class="count">{{ $cartCount ?? 0 }}</span>
                 </a>
                 @auth
                     <a href="{{ route('auth.logout') }}" class="action-btn" onclick="confirmLogout(event, this)">
@@ -102,134 +101,9 @@
                 <li class="menu-category">
                     <a href="{{ route('home') }}" class="menu-title">Home</a>
                 </li>
-
                 <li class="menu-category">
                     <a href="#" class="menu-title">Categories</a>
-
-                    <div class="dropdown-panel">
-
-                        <ul class="dropdown-panel-list">
-
-                            <li class="menu-title">
-                                <a href="#">Electronics</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Desktop</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Laptop</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Camera</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Tablet</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Headphone</a>
-                            </li>
-
-
-                        </ul>
-
-                        <ul class="dropdown-panel-list">
-
-                            <li class="menu-title">
-                                <a href="#">Men's</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Formal</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Casual</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Sports</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Jacket</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Sunglasses</a>
-                            </li>
-
-
-                        </ul>
-
-                        <ul class="dropdown-panel-list">
-
-                            <li class="menu-title">
-                                <a href="#">Women's</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Formal</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Casual</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Perfume</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Cosmetics</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Bags</a>
-                            </li>
-
-
-                        </ul>
-
-                        <ul class="dropdown-panel-list">
-
-                            <li class="menu-title">
-                                <a href="#">Electronics</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Smart Watch</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Smart TV</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Keyboard</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Mouse</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Microphone</a>
-                            </li>
-
-                            
-
-                        </ul>
-
-                    </div>
                 </li>
-
-
-
                 <li class="menu-category">
                     <a href="#" class="menu-title">Blog</a>
                 </li>
@@ -256,7 +130,7 @@
         <button class="action-btn">
             <ion-icon name="bag-handle-outline"></ion-icon>
 
-            <span class="count">0</span>
+            <span class="count">{{ $cartCount ?? 0 }}</span>
         </button>
 
         <button class="action-btn">
@@ -292,135 +166,7 @@
             </li>
 
             <li class="menu-category">
-
-                <button class="accordion-menu" data-accordion-btn>
-                    <p class="menu-title">Men's</p>
-
-                    <div>
-                        <ion-icon name="add-outline" class="add-icon"></ion-icon>
-                        <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-                    </div>
-                </button>
-
-                <ul class="submenu-category-list" data-accordion>
-
-                    <li class="submenu-category">
-                        <a href="#" class="submenu-title">Shirt</a>
-                    </li>
-
-                    <li class="submenu-category">
-                        <a href="#" class="submenu-title">Shorts & Jeans</a>
-                    </li>
-
-                    <li class="submenu-category">
-                        <a href="#" class="submenu-title">Safety Shoes</a>
-                    </li>
-
-                    <li class="submenu-category">
-                        <a href="#" class="submenu-title">Wallet</a>
-                    </li>
-
-                </ul>
-
-            </li>
-
-            <li class="menu-category">
-
-                <button class="accordion-menu" data-accordion-btn>
-                    <p class="menu-title">Women's</p>
-
-                    <div>
-                        <ion-icon name="add-outline" class="add-icon"></ion-icon>
-                        <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-                    </div>
-                </button>
-
-                <ul class="submenu-category-list" data-accordion>
-
-                    <li class="submenu-category">
-                        <a href="#" class="submenu-title">Dress & Frock</a>
-                    </li>
-
-                    <li class="submenu-category">
-                        <a href="#" class="submenu-title">Earrings</a>
-                    </li>
-
-                    <li class="submenu-category">
-                        <a href="#" class="submenu-title">Necklace</a>
-                    </li>
-
-                    <li class="submenu-category">
-                        <a href="#" class="submenu-title">Makeup Kit</a>
-                    </li>
-
-                </ul>
-
-            </li>
-
-            <li class="menu-category">
-
-                <button class="accordion-menu" data-accordion-btn>
-                    <p class="menu-title">Jewelry</p>
-
-                    <div>
-                        <ion-icon name="add-outline" class="add-icon"></ion-icon>
-                        <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-                    </div>
-                </button>
-
-                <ul class="submenu-category-list" data-accordion>
-
-                    <li class="submenu-category">
-                        <a href="#" class="submenu-title">Earrings</a>
-                    </li>
-
-                    <li class="submenu-category">
-                        <a href="#" class="submenu-title">Couple Rings</a>
-                    </li>
-
-                    <li class="submenu-category">
-                        <a href="#" class="submenu-title">Necklace</a>
-                    </li>
-
-                    <li class="submenu-category">
-                        <a href="#" class="submenu-title">Bracelets</a>
-                    </li>
-
-                </ul>
-
-            </li>
-
-            <li class="menu-category">
-
-                <button class="accordion-menu" data-accordion-btn>
-                    <p class="menu-title">Perfume</p>
-
-                    <div>
-                        <ion-icon name="add-outline" class="add-icon"></ion-icon>
-                        <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-                    </div>
-                </button>
-
-                <ul class="submenu-category-list" data-accordion>
-
-                    <li class="submenu-category">
-                        <a href="#" class="submenu-title">Clothes Perfume</a>
-                    </li>
-
-                    <li class="submenu-category">
-                        <a href="#" class="submenu-title">Deodorant</a>
-                    </li>
-
-                    <li class="submenu-category">
-                        <a href="#" class="submenu-title">Flower Fragrance</a>
-                    </li>
-
-                    <li class="submenu-category">
-                        <a href="#" class="submenu-title">Air Freshener</a>
-                    </li>
-
-                </ul>
-
+                <a href="#" class="menu-title">Categories</a>
             </li>
 
             <li class="menu-category">
@@ -429,6 +175,10 @@
 
             <li class="menu-category">
                 <a href="#" class="menu-title">Hot Offers</a>
+            </li>
+
+            <li class="menu-category">
+                <a href="#" class="menu-title">Contact</a>
             </li>
 
         </ul>

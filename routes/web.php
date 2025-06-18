@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Middleware\AuthenticateMiddleware;
 use App\Http\Middleware\LoginMiddleware;
 use App\Http\Middleware\AdminMiddleware;
@@ -42,7 +43,15 @@ Route::middleware(['login'])->group(function () {
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', [HomeController::class, 'index'])->name('home.page');
 Route::get('/admin', [AdminController::class, 'index'])->middleware('admin')->name('admin.index');
-Route::get('/cart', [CartController::class, 'index'])->name('cart.page');
+Route::middleware(['authenticate'])->group(function () {
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.page');
+    Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
+    Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.page');
+    Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+});
 
 Route::prefix('admin')->middleware(['admin'])->group(function () {
     Route::prefix('users')->group(function () {
@@ -74,4 +83,6 @@ Route::prefix('admin')->middleware(['admin'])->group(function () {
         Route::get('/', [SettingController::class, 'index'])->name('admin.settings.index');
         Route::post('/', [SettingController::class, 'update'])->name('admin.settings.update');
     });
+
+
 });
