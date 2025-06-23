@@ -68,7 +68,7 @@
             </div>
 
             <div class="header-user-actions">
-                <a href="@if (Auth::check()) {{ route('auth.logout') }} @else {{ route('auth.login.page') }} @endif"
+                <a href="@if (Auth::check()) {{ route('user.profile') }} @else {{ route('auth.login.page') }} @endif"
                     class="action-btn">
                     <ion-icon name="person-outline"></ion-icon>
                 </a>

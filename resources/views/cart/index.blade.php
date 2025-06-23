@@ -106,7 +106,7 @@
             </tr>
           </table>
 
-          <a href="" class="checkout-btn">Proceed to Checkout</a>
+          <a href="{{ route('checkout.page') }}" class="checkout-btn">Proceed to Checkout</a>
         </div>
       </div>
     </div>

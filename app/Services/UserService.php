@@ -45,4 +45,8 @@ class UserService implements UserServiceInterface
         Cache::forget('all_users');
         return $this->userRepository->delete($id);
     }
+    public function findById($id)
+    {
+        return $this->userRepository->find($id);
+    }
 }

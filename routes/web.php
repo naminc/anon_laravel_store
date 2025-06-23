@@ -51,6 +51,8 @@ Route::middleware(['authenticate'])->group(function () {
 
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.page');
     Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+
+    Route::get('/user/profile', [UserController::class, 'profile'])->name('user.profile');
 });
 
 Route::prefix('admin')->middleware(['admin'])->group(function () {
@@ -65,7 +67,9 @@ Route::prefix('admin')->middleware(['admin'])->group(function () {
         Route::post('/store', [OrderController::class, 'store'])->name('admin.orders.store');
         Route::post('/update', [OrderController::class, 'update'])->name('admin.orders.update');
         Route::delete('/{id}', [OrderController::class, 'destroy'])->name('admin.orders.destroy');
-        Route::patch('/{id}/status', [OrderController::class, 'updateStatus'])->name('admin.orders.updateStatus');
+        Route::put('/{id}/status', [OrderController::class, 'updateStatus'])->name('admin.orders.updateStatus');
+        Route::get('/{id}', [OrderController::class, 'show'])->name('admin.orders.show');
+
     });
     Route::prefix('categories')->group(function () {
         Route::get('/', [CategoryController::class, 'index'])->name('admin.categories.index');

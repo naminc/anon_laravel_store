@@ -7,13 +7,16 @@ use App\Services\Interfaces\UserServiceInterface;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Services\Interfaces\OrderServiceInterface;
 
 class UserController extends Controller
 {
     protected $userService;
-    public function __construct(UserServiceInterface $userService)
+    protected $orderService;
+    public function __construct(UserServiceInterface $userService, OrderServiceInterface $orderService)
     {
         $this->userService = $userService;
+        $this->orderService = $orderService;
     }
     public function index()
     {
@@ -37,5 +40,11 @@ class UserController extends Controller
             $result ? 'success' : 'error',
             $result ? 'User deleted successfully' : 'User delete failed'
         );
+    }
+    public function profile()
+    {
+        $user = $this->userService->findById(auth()->user()->id);
+        $orders = $this->orderService->getByUserId(auth()->user()->id);
+        return view('user.profile', compact('user', 'orders'));
     }
 }

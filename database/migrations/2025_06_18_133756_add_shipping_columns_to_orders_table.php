@@ -14,16 +14,16 @@ return new class extends Migration
     public function up()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('email');
-            $table->string('phone');
-            $table->string('address');
-            $table->string('address2')->nullable();
-            $table->string('city');
-            $table->string('state');
-            $table->string('zip');
-            $table->string('country');
+            $table->string('first_name')->after('user_id');
+            $table->string('last_name')->after('first_name');
+            $table->string('email')->after('last_name');
+            $table->string('phone')->after('email');
+            $table->string('address')->after('phone');
+            $table->string('address2')->nullable()->after('address');
+            $table->string('city')->after('address2');
+            $table->string('state')->after('city');
+            $table->string('zip')->after('state');
+            $table->string('country')->after('zip');
         });
     }
 

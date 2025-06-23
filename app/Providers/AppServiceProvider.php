@@ -29,6 +29,14 @@ use App\Repositories\Interfaces\CartRepositoryInterface;
 use App\Repositories\CartRepository;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
+use App\Services\Interfaces\CheckoutServiceInterface;
+use App\Services\CheckoutService;
+use App\Repositories\Interfaces\OrderRepositoryInterface;
+use App\Repositories\OrderRepository;
+use App\Repositories\Interfaces\OrderDetailRepositoryInterface;
+use App\Repositories\OrderDetailRepository;
+use App\Services\Interfaces\OrderServiceInterface;
+use App\Services\OrderService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -45,6 +53,10 @@ class AppServiceProvider extends ServiceProvider
         ProductRepositoryInterface::class => ProductRepository::class,
         CartServiceInterface::class => CartService::class,
         CartRepositoryInterface::class => CartRepository::class,
+        CheckoutServiceInterface::class => CheckoutService::class,
+        OrderRepositoryInterface::class => OrderRepository::class,
+        OrderDetailRepositoryInterface::class => OrderDetailRepository::class,
+        OrderServiceInterface::class => OrderService::class,
     ];
     /**
      * Register any application services.

@@ -31,7 +31,7 @@
 
                         <div class="info-box-content">
                             <span class="info-box-text">Total Categories</span>
-                            <span class="info-box-number">0</span>
+                            <span class="info-box-number">{{ $totalCategories }}</span>
                         </div>
                         <!-- /.info-box-content -->
                     </div>
@@ -48,7 +48,7 @@
 
                         <div class="info-box-content">
                             <span class="info-box-text">Total Orders</span>
-                            <span class="info-box-number">760</span>
+                            <span class="info-box-number">{{ $totalOrders }}</span>
                         </div>
                         <!-- /.info-box-content -->
                     </div>

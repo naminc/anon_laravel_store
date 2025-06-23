@@ -15,9 +15,13 @@ class AdminController extends Controller
     {
         $totalProducts = Product::count();
         $totalUsers = User::count();
+        $totalCategories = Category::count();
+        $totalOrders = Order::count();
         $data = [
             'totalProducts' => $totalProducts,
             'totalUsers' => $totalUsers,
+            'totalCategories' => $totalCategories,
+            'totalOrders' => $totalOrders,
         ];
         return view('admin.index', $data);
     }
