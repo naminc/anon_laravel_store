@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Repositories\Interfaces\UserRepositoryInterface as UserRepository;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cache;
+
 /**
  * Class UserService
  * @package App\Services
@@ -48,5 +49,21 @@ class UserService implements UserServiceInterface
     public function findById($id)
     {
         return $this->userRepository->find($id);
+    }
+
+    public function updateProfile($id, array $data)
+    {
+        Cache::forget('all_users');
+        return $this->userRepository->update($id, $data);
+    }
+    public function changePassword(array $data): bool
+    {
+        Cache::forget('all_users');
+        $user = $this->userRepository->find(auth()->user()->id);
+        if (!Hash::check($data['old_password'], $user->password)) {
+            return false;
+        }
+        $hashedPassword = Hash::make($data['new_password']);
+        return $this->userRepository->updatePassword(auth()->user()->id, $hashedPassword);
     }
 }

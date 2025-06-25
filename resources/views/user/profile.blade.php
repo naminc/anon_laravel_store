@@ -16,27 +16,41 @@
                     </span>
                     <span class="breadcrumb-item active">My Account</span>
                 </div>
-
                 <h2 class="account-title">My Account</h2>
-
-                <!-- Account Information Section -->
                 <div class="account-content ">
                     <div class="section-title">
                         Account Details
                     </div>
 
                     <div class="profile-view" id="profile-view">
-                        <form>
+                        <form action="{{ route('user.profile.update') }}" method="POST">
+                            @csrf
+                            @method('PUT')
                             <div class="form-group">
                                 <label for="first-name" class="form-label">Full Name *</label>
-                                <input type="text" id="first-name" class="form-input" value="{{ $user->fullname }}"
-                                    required>
+                                <input type="text" id="first-name"
+                                       name="fullname"
+                                       class="form-input @error('fullname') is-invalid @enderror"
+                                       value="{{ old('fullname', $user->fullname) }}"
+                                       placeholder="Enter your full name"
+                                       required>
+                                @error('fullname')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
+                            
                             <div class="form-group">
                                 <label for="email" class="form-label">Email Address *</label>
-                                <input type="email" id="email" class="form-input" value="{{ $user->email }}"
-                                    required>
-                            </div>
+                                <input type="email" id="email"
+                                       name="email"
+                                       class="form-input @error('email') is-invalid @enderror"
+                                       value="{{ old('email', $user->email) }}"
+                                       placeholder="Enter your email address"
+                                       required>
+                                @error('email')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>                            
                             <div class="form-group">
                                 <label for="created-at" class="form-label">Created At *</label>
                                 <input type="text" id="created-at" class="form-input" value="{{ $user->created_at->format('d/m/Y H:i:s') }}"
@@ -55,18 +69,29 @@
                     </div>
 
                     <div class="profile-view" id="profile-view">
-                        <form>
+                        <form action="{{ route('user.profile.change-password') }}" method="POST">
+                            @csrf
+                            @method('PUT')
                             <div class="form-group">
                                 <label for="old-password" class="form-label">Old Password *</label>
-                                <input type="password" id="old-password" placeholder="Enter your old password" class="form-input" value="" required>
+                                <input type="password" id="old-password" name="old_password" placeholder="Enter your old password" class="form-input @error('old_password') is-invalid @enderror" value="" required>
+                                @error('old_password')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label for="new-password" class="form-label">New Password *</label>
-                                <input type="password" id="new-password" placeholder="Enter your new password" class="form-input" value="" required>
+                                <input type="password" id="new-password" name="new_password" placeholder="Enter your new password" class="form-input @error('new_password') is-invalid @enderror" value="" required>
+                                @error('new_password')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label for="confirm-password" class="form-label">Confirm Password *</label>
-                                <input type="password" id="confirm-password" placeholder="Enter your confirm password" class="form-input" value="" required>
+                                <input type="password" id="confirm-password" name="new_password_confirmation" placeholder="Enter your confirm password" class="form-input @error('new_password_confirmation') is-invalid @enderror" value="" required>
+                                @error('new_password_confirmation')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-actions">
                                 <button type="submit" class="save-btn">Change Password</button>

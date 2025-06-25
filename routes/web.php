@@ -15,6 +15,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Middleware\AuthenticateMiddleware;
 use App\Http\Middleware\LoginMiddleware;
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Controllers\AccountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,7 +53,9 @@ Route::middleware(['authenticate'])->group(function () {
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.page');
     Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 
-    Route::get('/user/profile', [UserController::class, 'profile'])->name('user.profile');
+    Route::get('/user/profile', [AccountController::class, 'profile'])->name('user.profile');
+    Route::put('/user/profile', [AccountController::class, 'update'])->name('user.profile.update');
+    Route::put('/user/profile/change-password', [AccountController::class, 'changePassword'])->name('user.profile.change-password');
 });
 
 Route::prefix('admin')->middleware(['admin'])->group(function () {

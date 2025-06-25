@@ -41,10 +41,4 @@ class UserController extends Controller
             $result ? 'User deleted successfully' : 'User delete failed'
         );
     }
-    public function profile()
-    {
-        $user = $this->userService->findById(auth()->user()->id);
-        $orders = $this->orderService->getByUserId(auth()->user()->id);
-        return view('user.profile', compact('user', 'orders'));
-    }
 }

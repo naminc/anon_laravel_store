@@ -33,4 +33,8 @@ class UserRepository implements UserRepositoryInterface
     {
         return User::destroy($id);
     } 
+    public function updatePassword(int $userId, string $hashedPassword): bool
+    {
+        return User::where('id', $userId)->update(['password' => $hashedPassword]);
+    }
 }
