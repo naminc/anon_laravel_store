@@ -56,6 +56,7 @@ Route::middleware(['authenticate'])->group(function () {
     Route::get('/user/profile', [AccountController::class, 'profile'])->name('user.profile');
     Route::put('/user/profile', [AccountController::class, 'update'])->name('user.profile.update');
     Route::put('/user/profile/change-password', [AccountController::class, 'changePassword'])->name('user.profile.change-password');
+    Route::get('/user/orders/{id}', [AccountController::class, 'showOrder'])->name('user.orders.show');
 });
 
 Route::prefix('admin')->middleware(['admin'])->group(function () {

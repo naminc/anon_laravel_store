@@ -36,4 +36,9 @@ class AccountController extends Controller
             $result ? 'Password changed successfully.' : 'Old password is incorrect.'
         );
     }
+    public function showOrder($id)
+    {
+        $order = $this->orderService->findById($id);
+        return view('user.order', compact('order'));
+    }
 }

@@ -94,15 +94,15 @@
             </tr>
             <tr>
               <th>Shipping</th>
-              <td>$5.00</td>
+              <td>{{ $cart->count() > 0 ? '$5.00' : '$0.00' }}</td>
             </tr>
             <tr>
               <th>Tax</th>
-              <td>$0.00</td>
+              <td>${{ number_format(($cart->sum(fn($item) => $item->product->price * $item->quantity) * 0.1), 2) }} ({{ $cart->count() > 0 ? '10%' : '0%' }})</td>
             </tr>
             <tr>
               <th>Total</th>
-              <td>${{ number_format($cart->sum(fn($item) => $item->product->price * $item->quantity) + 5, 2) }}</td>
+              <td>${{ number_format(($cart->sum(fn($item) => $item->product->price * $item->quantity) * 1.1) + ($cart->count() > 0 ? 5 : 0), 2) }}</td>
             </tr>
           </table>
 

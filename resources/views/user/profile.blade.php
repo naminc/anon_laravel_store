@@ -121,7 +121,7 @@
                                     <td class="order-date">{{ $order->created_at->format('d/m/Y H:i:s') }}</td>
                                     <td><span class="order-status status-{{ $order->status }}">{{ ucfirst($order->status) }}</span></td>
                                     <td class="order-total">${{ number_format($order->total_price, 2) }}</td>
-                                    <td><a href="" class="view-btn" data-order="ORD-{{ $order->id }}">View</a></td>
+                                    <td><a href="{{ route('user.orders.show', $order->id) }}" class="view-btn" data-order="ORD-{{ $order->id }}">View</a></td>
                                 </tr>
                                 @endforeach
                             </tbody>
