@@ -76,7 +76,7 @@ class ProductSeeder extends Seeder
                 'name' => 'Black Floral Wrap Midi Skirt',
                 'description' => 'Black Floral Wrap Midi Skirt',
                 'price' => 41,
-                'images' => 'assets/images/products/skirt-1.jpg',
+                'images' => 'assets/images/products/clothes-3.jpg',
                 'category_id' => 6,
                 'status' => 'active',
                 'created_at' => now(),
