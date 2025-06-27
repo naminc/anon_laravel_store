@@ -101,7 +101,7 @@
                         </li>
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                <a href="{{ route('home.page') }}" class="btn btn-default btn-flat">Return Home</a>
                             </div>
                             <div class="pull-right">
                                 <a href="{{ route('auth.logout') }}" onclick="confirmLogout(event, this)" class="btn btn-default btn-flat">
