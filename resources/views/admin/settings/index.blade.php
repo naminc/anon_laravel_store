@@ -113,7 +113,7 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="maintenance_mode">Maintenance Mode</label>
+                                    <label for="maintenance_mode">Maintenance Mode (Only applies to users, admin accounts are not affected.)</label>
                                     <select class="form-control" name="maintenance_mode">
                                         <option value="off" {{ $setting->maintenance_mode == 'off' ? 'selected' : '' }}>OFF</option>
                                         <option value="on" {{ $setting->maintenance_mode == 'on' ? 'selected' : '' }}>ON</option>
