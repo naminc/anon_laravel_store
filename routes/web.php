@@ -91,6 +91,4 @@ Route::prefix('admin')->middleware(['admin'])->group(function () {
         Route::get('/', [SettingController::class, 'index'])->name('admin.settings.index');
         Route::post('/', [SettingController::class, 'update'])->name('admin.settings.update');
     });
-
-
 });

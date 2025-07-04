@@ -99,7 +99,7 @@ onclick="return showLoginAlert(event)" @endguest>
             <ul class="desktop-menu-category-list">
 
                 <li class="menu-category">
-                    <a href="{{ route('home') }}" class="menu-title">Home</a>
+                    <a href="{{ route('home.page') }}" class="menu-title">Home</a>
                 </li>
                 <li class="menu-category">
                     <a href="#" class="menu-title">Categories</a>
@@ -107,12 +107,8 @@ onclick="return showLoginAlert(event)" @endguest>
                 <li class="menu-category">
                     <a href="#" class="menu-title">Blog</a>
                 </li>
-
                 <li class="menu-category">
-                    <a href="#" class="menu-title">Hot Offers</a>
-                </li>
-                <li class="menu-category">
-                    <a href="#" class="menu-title">Contact</a>
+                    <a href="//zalo.me/{{ $setting->phone }}" class="menu-title">Contact</a>
                 </li>
 
             </ul>
@@ -133,15 +129,9 @@ onclick="return showLoginAlert(event)" @endguest>
             <span class="count">{{ $cartCount ?? 0 }}</span>
         </button>
 
-        <button class="action-btn">
+        <a href="{{ route('home.page') }}" class="action-btn">
             <ion-icon name="home-outline"></ion-icon>
-        </button>
-
-        <button class="action-btn">
-            <ion-icon name="heart-outline"></ion-icon>
-
-            <span class="count">0</span>
-        </button>
+        </a>
 
         <button class="action-btn" data-mobile-menu-open-btn>
             <ion-icon name="grid-outline"></ion-icon>
@@ -162,7 +152,7 @@ onclick="return showLoginAlert(event)" @endguest>
         <ul class="mobile-menu-category-list">
 
             <li class="menu-category">
-                <a href="#" class="menu-title">Home</a>
+                <a href="{{ route('home.page') }}" class="menu-title">Home</a>
             </li>
 
             <li class="menu-category">
@@ -178,7 +168,7 @@ onclick="return showLoginAlert(event)" @endguest>
             </li>
 
             <li class="menu-category">
-                <a href="#" class="menu-title">Contact</a>
+                <a href="//zalo.me/{{ $setting->phone }}" class="menu-title">Contact</a>
             </li>
 
         </ul>
