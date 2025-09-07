@@ -1,4 +1,4 @@
-# 📦 My Laravel App
+# 📦 Anon Laravel Store
 
 [![Laravel](https://img.shields.io/badge/Laravel-9.x-red.svg?logo=laravel)](https://laravel.com/)
 [![License](https://img.shields.io/github/license/naminc/anon_laravel_store)](LICENSE)
