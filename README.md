@@ -1,7 +1,7 @@
 # 📦 My Laravel App
 
 [![Laravel](https://img.shields.io/badge/Laravel-9.x-red.svg?logo=laravel)](https://laravel.com/)
-[![License](https://img.shields.io/github/license/naminc/my_laravel_app)](LICENSE)
+[![License](https://img.shields.io/github/license/naminc/anon_laravel_store)](LICENSE)
 [![PHP](https://img.shields.io/badge/PHP-8.0+-8892be.svg?logo=php)](https://www.php.net/)
 
 A Fashion Shop project built with Laravel, structured following the **Repository – Service – Interface** pattern.
@@ -13,14 +13,14 @@ A Fashion Shop project built with Laravel, structured following the **Repository
 ### 1. Clone the project from GitHub
 
 ```bash
-git clone https://github.com/naminc/my_laravel_app.git
+git clone https://github.com/naminc/anon_laravel_store.git
 ```
 
 ### 2. (Optional) Move code out if it's inside a subfolder:
 
 ```bash
-mv my_laravel_app/* my_laravel_app/.* . 2>/dev/null
-rm -rf my_laravel_app
+mv anon_laravel_store/* anon_laravel_store/.* . 2>/dev/null
+rm -rf anon_laravel_store
 ```
 
 ### 3. Create the `.env` file from the example and configure DB
