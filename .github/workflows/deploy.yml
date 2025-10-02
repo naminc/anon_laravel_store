@@ -1,30 +1,53 @@
-- name: Deploy to Server
-  run: |
-    ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
-      set -e
-      cd /www/wwwroot/nam.gold
+name: Deploy Laravel App
 
-      echo "👉 Fix git safe directory..."
-      git config --global --add safe.directory /www/wwwroot/nam.gold
+on:
+  push:
+    branches:
+      - main
 
-      echo "👉 Pull latest code..."
-      git reset --hard
-      git pull origin main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
 
-      echo "👉 Restore .env if missing..."
-      if [ ! -f .env ]; then
-        cp .env.example .env
-      fi
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      echo "👉 Install dependencies..."
-      composer install --no-interaction --prefer-dist --optimize-autoloader
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SERVER_SSH_KEY }}
 
-      echo "👉 Run migrations..."
-      php artisan migrate --force || true
+      - name: Deploy to Server
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
+            set -e
+            cd /www/wwwroot/nam.gold
 
-      echo "👉 Clear cache..."
-      php artisan config:clear || true
-      php artisan cache:clear || true
-      php artisan route:clear || true
-      php artisan view:clear || true
-    EOF
+            echo "👉 Fix git safe directory..."
+            git config --global --add safe.directory /www/wwwroot/nam.gold
+
+            echo "👉 Pull latest code..."
+            git reset --hard
+            git pull origin main
+
+            echo "👉 Restore .env if missing..."
+            if [ ! -f .env ]; then
+              cp .env.example .env
+            fi
+
+            echo "👉 Install dependencies..."
+            composer install --no-interaction --prefer-dist --optimize-autoloader
+
+            echo "👉 Run migrations..."
+            php artisan migrate --force || true
+
+            echo "👉 Clear cache..."
+            php artisan config:clear || true
+            php artisan cache:clear || true
+            php artisan route:clear || true
+            php artisan view:clear || true
+
+            echo "👉 Restart web server..."
+            sudo bt restart || true
+          EOF
