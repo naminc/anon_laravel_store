@@ -21,26 +21,20 @@ jobs:
       - name: Deploy to Server
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
+            set -e
             cd /www/wwwroot/nam.gold
 
             echo "👉 Pull latest code..."
-            git config --global --add safe.directory /www/wwwroot/nam.gold
             git reset --hard
             git pull origin main
 
             echo "👉 Restore .env if missing..."
             if [ ! -f .env ]; then
-              cp /www/wwwroot/nam.gold/.env.example /www/wwwroot/nam.gold/.env
+              cp .env.example .env
             fi
 
-            echo "👉 Fix permissions..."
-            chmod -R 775 storage bootstrap/cache || true
-            touch storage/logs/laravel.log || true
-            chmod 664 storage/logs/laravel.log || true
-
-
             echo "👉 Install dependencies..."
-            composer install --no-interaction --prefer-dist --optimize-autoloader || true
+            composer install --no-interaction --prefer-dist --optimize-autoloader
 
             echo "👉 Run migrations..."
             php artisan migrate --force || true
