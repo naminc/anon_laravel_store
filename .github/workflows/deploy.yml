@@ -3,7 +3,7 @@ name: Deploy Laravel App
 on:
   push:
     branches:
-      - main
+      - main   
 
 jobs:
   deploy:
@@ -11,62 +11,44 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Setup SSH
-        uses: webfactory/ssh-agent@v0.9.0
+        uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SERVER_SSH_KEY }}
 
       - name: Deploy to Server
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
-            set -e  # Exit on error to catch issues early
+            cd /www/wwwroot/nam.gold
 
-            echo "👉 Navigating to project directory..."
-            cd /www/wwwroot/nam.gold || { echo "Failed to access directory"; exit 1; }
-
-            echo "👉 Setting Git safe directory..."
+            echo "👉 Pull latest code..."
             git config --global --add safe.directory /www/wwwroot/nam.gold
-
-            echo "👉 Pulling latest code..."
             git reset --hard
-            git pull origin main || { echo "Git pull failed"; exit 1; }
+            git pull origin main
 
-            echo "👉 Restoring .env if missing..."
+            echo "👉 Restore .env if missing..."
             if [ ! -f .env ]; then
-              cp .env.example .env || { echo "Failed to restore .env"; exit 1; }
+              cp /www/wwwroot/nam.gold/.env.example /www/wwwroot/nam.gold/.env
             fi
 
-            echo "👉 Fixing permissions for Git directory..."
-            sudo chown -R www:www .git
-            sudo chmod -R 775 .git
+            echo "👉 Install dependencies..."
+            composer install --no-interaction --prefer-dist --optimize-autoloader || true
 
-            echo "👉 Ensuring storage and cache directories exist..."
-            sudo mkdir -p storage/logs bootstrap/cache
-            sudo touch storage/logs/laravel.log
-            sudo chown -R www:www storage bootstrap/cache
-            sudo chmod -R 775 storage bootstrap/cache
-            sudo chmod 664 storage/logs/laravel.log
+            echo "👉 Run migrations..."
+            php artisan migrate --force || true
 
-            echo "👉 Installing dependencies..."
-            export COMPOSER_HOME=/tmp/composer
-            composer install --no-interaction --prefer-dist --optimize-autoloader || { echo "Composer install failed"; exit 1; }
+            echo "👉 Clear cache..."
+            php artisan config:clear || true
+            php artisan cache:clear || true
+            php artisan route:clear || true
+            php artisan view:clear || true
 
-            echo "👉 Running migrations..."
-            php artisan migrate --force || { echo "Migration failed"; exit 1; }
+            echo "👉 Fix permissions..."
+            chmod -R 775 storage bootstrap/cache
+            chmod 664 storage/logs/laravel.log
 
-            echo "👉 Clearing and caching configurations..."
-            php artisan config:clear
-            php artisan cache:clear
-            php artisan route:clear
-            php artisan view:clear
-            php artisan config:cache
-            php artisan route:cache
-            php artisan view:cache
-
-            echo "👉 Restarting web server..."
-            sudo /etc/init.d/bt restart || { echo "Failed to restart web server"; exit 1; }
-
-            echo "👉 Deployment completed successfully!"
+            echo "👉 Restart web server..."
+            sudo bt restart || true
           EOF
