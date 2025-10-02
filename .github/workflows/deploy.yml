@@ -1,0 +1,48 @@
+name: Deploy Laravel App
+
+on:
+  push:
+    branches:
+      - main   
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SERVER_SSH_KEY }}
+
+      - name: Deploy to Apache Server
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
+            cd /www/wwwroot/nam.gold
+
+            echo "👉 Pulling latest code..."
+            git reset --hard
+            git pull origin main
+
+            echo "👉 Install dependencies..."
+            composer install --no-interaction --prefer-dist --optimize-autoloader
+
+            echo "👉 Run migrations..."
+            php artisan migrate --force
+
+            echo "👉 Clear cache..."
+            php artisan config:clear
+            php artisan cache:clear
+            php artisan route:clear
+            php artisan view:clear
+
+            echo "👉 Set permissions..."
+            chown -R www:www storage bootstrap/cache
+            chmod -R 775 storage bootstrap/cache
+
+            echo "👉 Restart Apache..."
+            sudo service apache2 restart || true
+          EOF
