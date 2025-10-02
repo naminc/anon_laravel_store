@@ -23,13 +23,17 @@ jobs:
           ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
             cd /www/wwwroot/nam.gold
 
-            echo "👉 Ensure storage/logs exists..."
-            mkdir -p storage/logs
-            touch storage/logs/laravel.log
-
-            echo "👉 Fix permissions before deploy..."
+            echo "👉 Fix permissions first..."
+            sudo mkdir -p storage/logs bootstrap/cache
             sudo chown -R www:www storage bootstrap/cache
             sudo chmod -R 775 storage bootstrap/cache
+
+            echo "👉 Ensure laravel.log exists..."
+            if [ ! -f storage/logs/laravel.log ]; then
+              sudo touch storage/logs/laravel.log
+              sudo chown www:www storage/logs/laravel.log
+              sudo chmod 664 storage/logs/laravel.log
+            fi
 
             echo "👉 Pull latest code..."
             git config --global --add safe.directory /www/wwwroot/nam.gold
