@@ -18,14 +18,19 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SERVER_SSH_KEY }}
 
-      - name: Deploy to Apache Server
+      - name: Deploy to Server
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
             cd /www/wwwroot/nam.gold
 
-            echo "👉 Pulling latest code..."
+            echo "👉 Pull latest code..."
             git reset --hard
             git pull origin main
+
+            echo "👉 Restore .env if missing..."
+            if [ ! -f .env ]; then
+              cp /www/wwwroot/nam.gold/.env.example /www/wwwroot/nam.gold/.env
+            fi
 
             echo "👉 Install dependencies..."
             composer install --no-interaction --prefer-dist --optimize-autoloader
