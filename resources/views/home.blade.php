@@ -114,7 +114,7 @@
                     <div class="testimonial">
                         <h2 class="title">testimonial</h2>
                         <div class="testimonial-card">
-                            <img src="https://naminc.dev/profiles.jpg" alt="{{ $setting->author }}"
+                            <img src="https://naminc.dev/pro5.jpg" alt="{{ $setting->author }}"
                                 class="testimonial-banner" width="80" height="80">
                             <p class="testimonial-name">{{ $setting->author }}</p>
                             <p class="testimonial-title">CEO & Founder Invision</p>
