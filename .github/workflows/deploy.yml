@@ -54,9 +54,5 @@ jobs:
             sudo chmod -R 775 storage bootstrap/cache
 
             echo "👉 Restart web server..."
-            if command -v bt >/dev/null 2>&1; then
-              bt restart
-            elif command -v service >/dev/null 2>&1; then
-              service apache2 restart || service httpd restart || service nginx restart || true
-            fi
+            sudo bt restart || true
           EOF
