@@ -3,7 +3,7 @@ name: Deploy Laravel App
 on:
   push:
     branches:
-      - main   
+      - main   # chạy CI/CD khi push lên nhánh main
 
 jobs:
   deploy:
@@ -22,18 +22,6 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
             cd /www/wwwroot/nam.gold
-
-            echo "👉 Fix permissions first..."
-            sudo mkdir -p storage/logs bootstrap/cache
-            sudo chown -R www:www storage bootstrap/cache
-            sudo chmod -R 775 storage bootstrap/cache
-
-            echo "👉 Ensure laravel.log exists..."
-            if [ ! -f storage/logs/laravel.log ]; then
-              sudo touch storage/logs/laravel.log
-              sudo chown www:www storage/logs/laravel.log
-              sudo chmod 664 storage/logs/laravel.log
-            fi
 
             echo "👉 Pull latest code..."
             git config --global --add safe.directory /www/wwwroot/nam.gold
@@ -57,14 +45,16 @@ jobs:
             php artisan route:clear || true
             php artisan view:clear || true
 
-            echo "👉 Fix permissions again..."
+            echo "👉 Fix permissions..."
             sudo chown -R www:www storage bootstrap/cache
             sudo chmod -R 775 storage bootstrap/cache
 
+            # đảm bảo file log tồn tại
+            sudo mkdir -p storage/logs
+            sudo touch storage/logs/laravel.log
+            sudo chown www:www storage/logs/laravel.log
+            sudo chmod 664 storage/logs/laravel.log
+
             echo "👉 Restart web server..."
-            if command -v bt >/dev/null 2>&1; then
-              sudo bt restart
-            elif command -v service >/dev/null 2>&1; then
-              sudo service apache2 restart || sudo service httpd restart || sudo service nginx restart || true
-            fi
+            sudo bt restart || true
           EOF
