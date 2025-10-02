@@ -33,12 +33,11 @@ jobs:
               cp /www/wwwroot/nam.gold/.env.example /www/wwwroot/nam.gold/.env
             fi
 
-            echo "👉 Fix permissions trước khi composer & artisan..."
-            # gán owner cho đúng user (nếu có sudo)
-            sudo chown -R $USER:$USER /www/wwwroot/nam.gold || true
-            chmod -R 775 storage bootstrap/cache
-            touch storage/logs/laravel.log
-            chmod 664 storage/logs/laravel.log
+            echo "👉 Fix permissions..."
+            chmod -R 775 storage bootstrap/cache || true
+            touch storage/logs/laravel.log || true
+            chmod 664 storage/logs/laravel.log || true
+
 
             echo "👉 Install dependencies..."
             composer install --no-interaction --prefer-dist --optimize-autoloader || true
