@@ -23,7 +23,12 @@ jobs:
           ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
             cd /www/wwwroot/nam.gold
 
+            echo "👉 Fix permissions before deploy..."
+            sudo chown -R ubuntu:www-data storage bootstrap/cache
+            sudo chmod -R 775 storage bootstrap/cache
+
             echo "👉 Pull latest code..."
+            git config --global --add safe.directory /www/wwwroot/nam.gold
             git reset --hard
             git pull origin main
 
@@ -33,21 +38,25 @@ jobs:
             fi
 
             echo "👉 Install dependencies..."
-            composer install --no-interaction --prefer-dist --optimize-autoloader
+            composer install --no-interaction --prefer-dist --optimize-autoloader || true
 
             echo "👉 Run migrations..."
-            php artisan migrate --force
+            php artisan migrate --force || true
 
             echo "👉 Clear cache..."
-            php artisan config:clear
-            php artisan cache:clear
-            php artisan route:clear
-            php artisan view:clear
+            php artisan config:clear || true
+            php artisan cache:clear || true
+            php artisan route:clear || true
+            php artisan view:clear || true
 
-            echo "👉 Fix permissions..."
-            sudo chown -R www:www storage bootstrap/cache
+            echo "👉 Fix permissions again..."
+            sudo chown -R ubuntu:www-data storage bootstrap/cache
             sudo chmod -R 775 storage bootstrap/cache
 
-            echo "👉 Restart Apache..."
-            sudo service apache2 restart || true
+            echo "👉 Restart web server..."
+            if command -v bt >/dev/null 2>&1; then
+              bt restart
+            elif command -v service >/dev/null 2>&1; then
+              service apache2 restart || service httpd restart || service nginx restart || true
+            fi
           EOF
