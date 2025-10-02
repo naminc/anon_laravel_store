@@ -23,8 +23,12 @@ jobs:
           ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
             cd /www/wwwroot/nam.gold
 
+            echo "👉 Ensure storage/logs exists..."
+            mkdir -p storage/logs
+            touch storage/logs/laravel.log
+
             echo "👉 Fix permissions before deploy..."
-            sudo chown -R ubuntu:www-data storage bootstrap/cache
+            sudo chown -R www:www storage bootstrap/cache
             sudo chmod -R 775 storage bootstrap/cache
 
             echo "👉 Pull latest code..."
@@ -50,9 +54,13 @@ jobs:
             php artisan view:clear || true
 
             echo "👉 Fix permissions again..."
-            sudo chown -R ubuntu:www-data storage bootstrap/cache
+            sudo chown -R www:www storage bootstrap/cache
             sudo chmod -R 775 storage bootstrap/cache
 
             echo "👉 Restart web server..."
-            sudo bt restart || true
+            if command -v bt >/dev/null 2>&1; then
+              sudo bt restart
+            elif command -v service >/dev/null 2>&1; then
+              sudo service apache2 restart || sudo service httpd restart || sudo service nginx restart || true
+            fi
           EOF
