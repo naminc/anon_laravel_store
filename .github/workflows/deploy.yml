@@ -3,7 +3,7 @@ name: Deploy Laravel App
 on:
   push:
     branches:
-      - main   
+      - main
 
 jobs:
   deploy:
@@ -33,6 +33,13 @@ jobs:
               cp /www/wwwroot/nam.gold/.env.example /www/wwwroot/nam.gold/.env
             fi
 
+            echo "👉 Fix permissions trước khi composer & artisan..."
+            # gán owner cho đúng user (nếu có sudo)
+            sudo chown -R $USER:$USER /www/wwwroot/nam.gold || true
+            chmod -R 775 storage bootstrap/cache
+            touch storage/logs/laravel.log
+            chmod 664 storage/logs/laravel.log
+
             echo "👉 Install dependencies..."
             composer install --no-interaction --prefer-dist --optimize-autoloader || true
 
@@ -44,10 +51,6 @@ jobs:
             php artisan cache:clear || true
             php artisan route:clear || true
             php artisan view:clear || true
-
-            echo "👉 Fix permissions..."
-            chmod -R 775 storage bootstrap/cache
-            chmod 664 storage/logs/laravel.log
 
             echo "👉 Restart web server..."
             sudo bt restart || true
