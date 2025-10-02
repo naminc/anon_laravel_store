@@ -3,7 +3,7 @@ name: Deploy Laravel App
 on:
   push:
     branches:
-      - main   # chạy CI/CD khi push lên nhánh main
+      - main
 
 jobs:
   deploy:
@@ -11,50 +11,62 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup SSH
-        uses: webfactory/ssh-agent@v0.7.0
+        uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.SERVER_SSH_KEY }}
 
       - name: Deploy to Server
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
-            cd /www/wwwroot/nam.gold
+            set -e  # Exit on error to catch issues early
 
-            echo "👉 Pull latest code..."
+            echo "👉 Navigating to project directory..."
+            cd /www/wwwroot/nam.gold || { echo "Failed to access directory"; exit 1; }
+
+            echo "👉 Setting Git safe directory..."
             git config --global --add safe.directory /www/wwwroot/nam.gold
-            git reset --hard
-            git pull origin main
 
-            echo "👉 Restore .env if missing..."
+            echo "👉 Pulling latest code..."
+            git reset --hard
+            git pull origin main || { echo "Git pull failed"; exit 1; }
+
+            echo "👉 Restoring .env if missing..."
             if [ ! -f .env ]; then
-              cp /www/wwwroot/nam.gold/.env.example /www/wwwroot/nam.gold/.env
+              cp .env.example .env || { echo "Failed to restore .env"; exit 1; }
             fi
 
-            echo "👉 Install dependencies..."
-            composer install --no-interaction --prefer-dist --optimize-autoloader || true
+            echo "👉 Fixing permissions for Git directory..."
+            sudo chown -R www:www .git
+            sudo chmod -R 775 .git
 
-            echo "👉 Run migrations..."
-            php artisan migrate --force || true
-
-            echo "👉 Clear cache..."
-            php artisan config:clear || true
-            php artisan cache:clear || true
-            php artisan route:clear || true
-            php artisan view:clear || true
-
-            echo "👉 Fix permissions..."
+            echo "👉 Ensuring storage and cache directories exist..."
+            sudo mkdir -p storage/logs bootstrap/cache
+            sudo touch storage/logs/laravel.log
             sudo chown -R www:www storage bootstrap/cache
             sudo chmod -R 775 storage bootstrap/cache
-
-            # đảm bảo file log tồn tại
-            sudo mkdir -p storage/logs
-            sudo touch storage/logs/laravel.log
-            sudo chown www:www storage/logs/laravel.log
             sudo chmod 664 storage/logs/laravel.log
 
-            echo "👉 Restart web server..."
-            sudo bt restart || true
+            echo "👉 Installing dependencies..."
+            export COMPOSER_HOME=/tmp/composer
+            composer install --no-interaction --prefer-dist --optimize-autoloader || { echo "Composer install failed"; exit 1; }
+
+            echo "👉 Running migrations..."
+            php artisan migrate --force || { echo "Migration failed"; exit 1; }
+
+            echo "👉 Clearing and caching configurations..."
+            php artisan config:clear
+            php artisan cache:clear
+            php artisan route:clear
+            php artisan view:clear
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+
+            echo "👉 Restarting web server..."
+            sudo /etc/init.d/bt restart || { echo "Failed to restart web server"; exit 1; }
+
+            echo "👉 Deployment completed successfully!"
           EOF
