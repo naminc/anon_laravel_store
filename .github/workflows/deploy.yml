@@ -23,6 +23,9 @@ jobs:
           ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
             cd /www/wwwroot/nam.gold
 
+            echo "👉 Mark repo as safe..."
+            git config --global --add safe.directory /www/wwwroot/nam.gold
+
             echo "👉 Pull latest code..."
             git reset --hard
             git pull origin main
@@ -45,9 +48,8 @@ jobs:
             php artisan view:clear
 
             echo "👉 Set permissions..."
-            chown -R www:www storage bootstrap/cache
             chmod -R 775 storage bootstrap/cache
 
-            echo "👉 Restart Apache..."
-            sudo service apache2 restart || true
+            echo "👉 Restart PHP-FPM..."
+            sudo service php-fpm-80 restart || true
           EOF
