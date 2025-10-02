@@ -32,7 +32,6 @@ class AuthService implements AuthServiceInterface
             Auth::login($user);
             return true;
         }
-
         return false;
     }
 }
